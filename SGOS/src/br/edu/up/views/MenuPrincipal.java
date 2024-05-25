@@ -1,6 +1,9 @@
 package br.edu.up.views;
+import java.util.List;
 import java.util.Scanner;
 
+import br.edu.up.controllers.ControleDeClientes;
+import br.edu.up.models.Cliente;
 import br.edu.up.util.Prompt;
 
 public class MenuPrincipal {
@@ -103,6 +106,10 @@ public class MenuPrincipal {
     }
 
     public void menuCliente(){
+
+        ViewCliente viewCliente = new ViewCliente();
+        ControleDeClientes controleDeClientes = new ControleDeClientes(null);
+
         Prompt.separador();
         Prompt.imprimir("MENU DE CLIENTE");
         Prompt.separador();
@@ -118,16 +125,25 @@ public class MenuPrincipal {
 
         switch (opcao1) {
             case 1:
-                //cadastrarCliente();  
+                viewCliente.cadastrarCliente();
+                continuar(); 
                 break;
             case 2:
-                //listarCliente();
+                List<Cliente> clientes = controleDeClientes.getClientes();
+                if(clientes.isEmpty()){
+                    Prompt.imprimir("Não há clientes cadastrados.");
+                }else{
+                    for (Cliente cliente : clientes) {
+                        Prompt.imprimir(cliente.toStringBasico());
+                    }
+                }
+                continuar();
                 break;
             case 3:
                 //alterarCliente();
                 break;
             case 4:
-                //deletarCliente();
+                controleDeClientes.deletarCliente(viewCliente);
                 break;
             case 5:
                 Prompt.limparConsole();
