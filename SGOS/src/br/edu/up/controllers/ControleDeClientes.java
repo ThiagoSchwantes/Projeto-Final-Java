@@ -28,12 +28,18 @@ public class ControleDeClientes {
         dao.gravarArquivo();
     }
 
-    public void alterarCliente(ViewCliente viewCliente,Cliente clienteAlterado){
+    public void alterarCliente(ViewCliente viewCliente){
         String cpf = viewCliente.getcpf();
         for (Cliente cliente : clientes) {
-            if(cliente.getCpf() == cpf){
-                Cliente clienteAlteradoParaAdicionar = viewCliente.alterarCliente(cliente);
-                clientes.add(clienteAlteradoParaAdicionar);
+            if(cliente.getCpf().equals(cpf)){
+                Cliente clienteAlterado = viewCliente.alterarCliente();
+                cliente.setNomeCliente(clienteAlterado.getNomeCliente());
+                cliente.setRg(clienteAlterado.getRg());
+                cliente.setCep(clienteAlterado.getCep());
+                cliente.setEndereco(clienteAlterado.getEndereco());
+                cliente.setBairro(clienteAlterado.getBairro());
+                cliente.setCidade(clienteAlterado.getCidade());
+                break;
             }
         }
         dao.gravarArquivo();
@@ -42,7 +48,7 @@ public class ControleDeClientes {
     public void deletarCliente(ViewCliente viewCliente){
         String cpf = viewCliente.getcpf();
         for (Cliente cliente : clientes) {
-            if(cliente.getCpf() == cpf){
+            if(cliente.getCpf().equals(cpf)){
                 clientes.remove(cliente);
             }
         }

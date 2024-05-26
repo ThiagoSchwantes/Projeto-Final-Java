@@ -6,9 +6,8 @@ import br.edu.up.util.Prompt;
 
 public class ViewCliente {
     
+    ControleDeClientes controle = new ControleDeClientes(null);
     public Cliente cadastrarCliente(){
-
-        ControleDeClientes controle = new ControleDeClientes(null);
 
         Integer clienteId = controle.getProximoId();
         String nomeCliente = Prompt.lerLinha("Informe o nome do cliente: ");
@@ -29,11 +28,9 @@ public class ViewCliente {
         return cpf;
     }
 
-    public Cliente alterarCliente(Cliente cliente){
+    public Cliente alterarCliente(){
 
-        ControleDeClientes controle = new ControleDeClientes(null);
-
-        Integer clienteId = cliente.getClienteId();
+        
         String nomeCliente = Prompt.lerLinha("Informe o nome do cliente: ");
         String rg = Prompt.lerLinha("Informe o RG do cliente: ");
         String cpf = Prompt.lerLinha("Informe o CPF do cliente: ");
@@ -42,8 +39,8 @@ public class ViewCliente {
         String bairro = Prompt.lerLinha("Informe o bairro do cliente: ");
         String cidade = Prompt.lerLinha("Informe a cidade do cliente: ");
 
-        Cliente clientealterado = new Cliente(clienteId, nomeCliente, rg, cpf, cep, endereco, bairro, cidade);
-        controle.alterarCliente(null, clientealterado);
+        Cliente clientealterado = new Cliente(nomeCliente, rg, cpf, cep, endereco, bairro, cidade);
+        
         return clientealterado;
     }
 }

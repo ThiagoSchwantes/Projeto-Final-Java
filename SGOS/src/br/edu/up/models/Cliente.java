@@ -23,6 +23,18 @@ public class Cliente {
         this.cidade = cidade;
     }
 
+    public Cliente(String nomeCliente, String rg, String cpf, String cep, String endereco, String bairro,
+            String cidade) {
+        this.nomeCliente = nomeCliente;
+        this.rg = rg;
+        this.cpf = cpf;
+        this.cep = cep;
+        this.endereco = endereco;
+        this.bairro = bairro;
+        this.cidade = cidade;
+    }
+
+
     public Integer getClienteId() {
         return clienteId;
     }

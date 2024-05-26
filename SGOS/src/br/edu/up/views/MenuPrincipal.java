@@ -140,10 +140,12 @@ public class MenuPrincipal {
                 continuar();
                 break;
             case 3:
-                //alterarCliente();
+                controleDeClientes.alterarCliente(viewCliente);
+                continuar();
                 break;
             case 4:
                 controleDeClientes.deletarCliente(viewCliente);
+                continuar();
                 break;
             case 5:
                 Prompt.limparConsole();
