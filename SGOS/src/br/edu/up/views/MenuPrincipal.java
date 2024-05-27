@@ -3,10 +3,16 @@ import java.util.List;
 import java.util.Scanner;
 
 import br.edu.up.controllers.ControleDeAcabamento;
+import br.edu.up.controllers.ControleDeCategoria;
 import br.edu.up.controllers.ControleDeClientes;
+import br.edu.up.controllers.ControleDeEquipamento;
+import br.edu.up.controllers.ControleDePagamento;
 import br.edu.up.controllers.ControleDeProduto;
 import br.edu.up.models.Acabamento;
+import br.edu.up.models.Categoria;
 import br.edu.up.models.Cliente;
+import br.edu.up.models.Equipamento;
+import br.edu.up.models.Pagamento;
 import br.edu.up.models.Produto;
 import br.edu.up.util.Prompt;
 
@@ -130,7 +136,8 @@ public class MenuPrincipal {
         switch (opcao1) {
             case 1:
                 viewCliente.cadastrarCliente();
-                continuar(); 
+                continuar();
+                menuCliente(); 
                 break;
             case 2:
                 List<Cliente> clientes = controleDeClientes.getClientes();
@@ -142,14 +149,17 @@ public class MenuPrincipal {
                     }
                 }
                 continuar();
+                menuCliente(); 
                 break;
             case 3:
                 controleDeClientes.alterarCliente(viewCliente);
                 continuar();
+                menuCliente(); 
                 break;
             case 4:
                 controleDeClientes.deletarCliente(viewCliente);
                 continuar();
+                menuCliente(); 
                 break;
             case 5:
                 Prompt.limparConsole();
@@ -158,7 +168,8 @@ public class MenuPrincipal {
             default:
                 Prompt.limparConsole();
                 Prompt.imprimir("Valor Inválido.");
-                mostrarMenu();
+                continuar();
+                menuCliente(); 
                 break;
         }
     }
@@ -184,7 +195,8 @@ public class MenuPrincipal {
         switch (opcao1) {
             case 1:
                 viewProduto.cadastrarProduto();
-                continuar(); 
+                continuar();
+                menuProduto();  
                 break;
             case 2:
                 List<Produto> produtos = controleDeProduto.getProdutos();
@@ -196,14 +208,17 @@ public class MenuPrincipal {
                     }
                 }
                 continuar();
+                menuProduto();  
                 break;
             case 3:
                 controleDeProduto.alterarProduto(viewProduto);
                 continuar();
+                menuProduto();  
                 break;
             case 4:
                 controleDeProduto.deletarProduto(viewProduto);
                 continuar();
+                menuProduto();  
                 break;
             case 5:
                 Prompt.limparConsole();
@@ -239,6 +254,7 @@ public class MenuPrincipal {
             case 1:
                 viewAcabamento.cadastrarAcabamento();
                 continuar();
+                menuAcabamento();  
                 break;
             case 2:
                 List<Acabamento> acabamentos = controleDeAcabamento.getAcabamentos();
@@ -250,14 +266,17 @@ public class MenuPrincipal {
                     }
                 }
                 continuar();
+                menuAcabamento(); 
                 break;
             case 3:
                 controleDeAcabamento.alterarAcabamento(viewAcabamento);
                 continuar();
+                menuAcabamento(); 
                 break;
             case 4:
                 controleDeAcabamento.deletarAcabamento(viewAcabamento);
                 continuar();
+                menuAcabamento(); 
                 break;
             case 5:
                 Prompt.limparConsole();
@@ -272,6 +291,10 @@ public class MenuPrincipal {
     }
     
     public void menuEquipamento(){
+
+        ViewEquipamento viewEquipamento = new ViewEquipamento();
+        ControleDeEquipamento controleDeEquipamento = new ControleDeEquipamento(null);
+
         Prompt.separador();
         Prompt.imprimir("MENU DE EQUIPAMENTO");
         Prompt.separador();
@@ -287,16 +310,31 @@ public class MenuPrincipal {
 
         switch (opcao1) {
             case 1:
-                //cadastrarEquipamento();  
+                viewEquipamento.cadastrarEquipamento();
+                continuar();
+                menuEquipamento();  
                 break;
             case 2:
-                //listarEquipamento();
+                List<Equipamento> equipamentos = controleDeEquipamento.getEquipamentos();
+                if(equipamentos.isEmpty()){
+                    Prompt.imprimir("Não há equipamentos cadastrados.");
+                }else{
+                    for (Equipamento equipamento : equipamentos) {
+                        Prompt.imprimir(equipamento.toStringBasico());
+                    }
+                }
+                continuar();
+                menuEquipamento();
                 break;
             case 3:
-                //alterarEquipamento();
+                controleDeEquipamento.alterarEquipamento(viewEquipamento);
+                continuar();
+                menuEquipamento();
                 break;
             case 4:
-                //deletarEquipamento();
+                controleDeEquipamento.deletarEquipamento(viewEquipamento);
+                continuar();
+                menuEquipamento();
                 break;
             case 5:
                 Prompt.limparConsole();
@@ -310,6 +348,10 @@ public class MenuPrincipal {
         }
     }
     public void menuCategoria(){
+
+        ViewCategoria viewCategoria = new ViewCategoria();
+        ControleDeCategoria controleDeCategoria = new ControleDeCategoria(null);
+
         Prompt.separador();
         Prompt.imprimir("MENU DE CATEGORIA");
         Prompt.separador();
@@ -325,16 +367,31 @@ public class MenuPrincipal {
 
         switch (opcao1) {
             case 1:
-                //cadastrarCategoria();  
+                viewCategoria.cadastrarCategoria();
+                continuar();
+                menuCategoria();  
                 break;
             case 2:
-                //listarCategoria();
+                List<Categoria> categorias = controleDeCategoria.getCategorias();
+                if(categorias.isEmpty()){
+                    Prompt.imprimir("Não há categorias cadastradas.");
+                }else{
+                    for (Categoria categoria : categorias) {
+                        Prompt.imprimir(categoria.toStringBasico());
+                    }
+                }
+                continuar();
+                menuCategoria(); 
                 break;
             case 3:
-                //alterarCategoria();
+                controleDeCategoria.alterarCategoria(viewCategoria);
+                continuar();
+                menuCategoria(); 
                 break;
             case 4:
-                //deletarCategoria();
+                controleDeCategoria.deletarCategoria(viewCategoria);
+                continuar();
+                menuCategoria(); 
                 break;
             case 5:
                 Prompt.limparConsole();
@@ -349,6 +406,10 @@ public class MenuPrincipal {
     }
 
     public void menuPagamento(){
+
+        ViewPagamento viewPagamento = new ViewPagamento();
+        ControleDePagamento controleDePagamento = new ControleDePagamento(null);
+
         Prompt.separador();
         Prompt.imprimir("MENU DE PAGAMENTO");
         Prompt.separador();
@@ -364,16 +425,31 @@ public class MenuPrincipal {
 
         switch (opcao1) {
             case 1:
-                //cadastrarPagamento();  
+                viewPagamento.cadastrarPagamento();
+                continuar();
+                menuPagamento();  
                 break;
             case 2:
-                //listarPagamento();
+                List<Pagamento> pagamentos = controleDePagamento.getPagamentos();
+                if(pagamentos.isEmpty()){
+                    Prompt.imprimir("Não há pagamentos cadastrados.");
+                }else{
+                    for (Pagamento pagamento : pagamentos) {
+                        Prompt.imprimir(pagamento.toString());
+                    }
+                }
+                continuar();
+                menuPagamento();
                 break;
             case 3:
-                //alterarPagamento();
+                controleDePagamento.alterarPagamento(viewPagamento);
+                continuar();
+                menuPagamento();
                 break;
             case 4:
-                //deletarPagamento();
+                controleDePagamento.deletarPagamento(viewPagamento);
+                continuar();
+                menuPagamento();
                 break;
             case 5:
                 Prompt.limparConsole();
@@ -395,7 +471,7 @@ public class MenuPrincipal {
     public void continuar(){
         Prompt.imprimir("Pressione qualquer tecla para continuar...");
         scanner.nextLine();
-        mostrarMenu();
+
     }
 }
 

@@ -25,7 +25,7 @@ public class ViewProduto {
     }
 
     public Produto alterarProduto(){
-
+        
         
         String nomeProduto = Prompt.lerLinha("Informe o nome do Produto: ");
         String descricao = Prompt.lerLinha("Informe a descrição do Produto: ");
