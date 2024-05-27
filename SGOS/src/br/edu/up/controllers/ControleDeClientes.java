@@ -1,5 +1,7 @@
 package br.edu.up.controllers;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import br.edu.up.models.Cliente;
 import br.edu.up.views.ViewCliente;
@@ -8,13 +10,27 @@ import br.edu.up.daos.GereciadorDeArquivosDAO;
 public class ControleDeClientes {
     private List<Cliente> clientes;
     private GereciadorDeArquivosDAO dao;
+    private int maiorId;
 
     public ControleDeClientes(List<Cliente> clientes) {
         dao = new GereciadorDeArquivosDAO();
+        if (clientes == null) {
+            this.clientes = new ArrayList<>();
+        } else {
+            this.clientes = clientes;
+        }
         this.clientes = dao.getClientes();
+        this.maiorId = 0;
+
+        for (Cliente cliente : this.clientes) {
+            if (cliente.getClienteId() > maiorId) {
+                maiorId = cliente.getClienteId();
+            }
+        }
     }
+
     public int getProximoId() {
-        return this.clientes.size() + 1;
+        return ++maiorId;
     }
     public List<Cliente> getClientes() {
         return clientes;
@@ -47,9 +63,12 @@ public class ControleDeClientes {
 
     public void deletarCliente(ViewCliente viewCliente){
         String cpf = viewCliente.getcpf();
-        for (Cliente cliente : clientes) {
-            if(cliente.getCpf().equals(cpf)){
-                clientes.remove(cliente);
+        Iterator<Cliente> iterator = clientes.iterator();
+        while (iterator.hasNext()) {
+            Cliente cliente = iterator.next();
+            if (cliente.getCpf().equals(cpf)) {
+                iterator.remove();
+                break;
             }
         }
         dao.gravarArquivo();

@@ -2,8 +2,12 @@ package br.edu.up.views;
 import java.util.List;
 import java.util.Scanner;
 
+import br.edu.up.controllers.ControleDeAcabamento;
 import br.edu.up.controllers.ControleDeClientes;
+import br.edu.up.controllers.ControleDeProduto;
+import br.edu.up.models.Acabamento;
 import br.edu.up.models.Cliente;
+import br.edu.up.models.Produto;
 import br.edu.up.util.Prompt;
 
 public class MenuPrincipal {
@@ -160,6 +164,10 @@ public class MenuPrincipal {
     }
 
     public void menuProduto(){
+
+        ViewProduto viewProduto = new ViewProduto();
+        ControleDeProduto controleDeProduto = new ControleDeProduto(null);
+
         Prompt.separador();
         Prompt.imprimir("MENU DE PRODUTO");
         Prompt.separador();
@@ -175,16 +183,27 @@ public class MenuPrincipal {
 
         switch (opcao1) {
             case 1:
-                //cadastrarProduto();  
+                viewProduto.cadastrarProduto();
+                continuar(); 
                 break;
             case 2:
-                //listarProduto();
+                List<Produto> produtos = controleDeProduto.getProdutos();
+                if(produtos.isEmpty()){
+                    Prompt.imprimir("Não há produtos cadastrados.");
+                }else{
+                    for (Produto produto : produtos) {
+                        Prompt.imprimir(produto.toStringBasico());
+                    }
+                }
+                continuar();
                 break;
             case 3:
-                //alterarProduto();
+                controleDeProduto.alterarProduto(viewProduto);
+                continuar();
                 break;
             case 4:
-                //deletarProduto();
+                controleDeProduto.deletarProduto(viewProduto);
+                continuar();
                 break;
             case 5:
                 Prompt.limparConsole();
@@ -199,6 +218,10 @@ public class MenuPrincipal {
     }
 
     public void menuAcabamento(){
+
+        ViewAcabamento viewAcabamento = new ViewAcabamento();
+        ControleDeAcabamento controleDeAcabamento = new ControleDeAcabamento(null);
+
         Prompt.separador();
         Prompt.imprimir("MENU DE ACABAMENTO");
         Prompt.separador();
@@ -214,16 +237,27 @@ public class MenuPrincipal {
 
         switch (opcao1) {
             case 1:
-                //cadastrarAcabamento();  
+                viewAcabamento.cadastrarAcabamento();
+                continuar();
                 break;
             case 2:
-                //listarAcabamento();
+                List<Acabamento> acabamentos = controleDeAcabamento.getAcabamentos();
+                if(acabamentos.isEmpty()){
+                    Prompt.imprimir("Não há acabamentos cadastrados.");
+                }else{
+                    for (Acabamento acabamento : acabamentos) {
+                        Prompt.imprimir(acabamento.toStringBasico());
+                    }
+                }
+                continuar();
                 break;
             case 3:
-                //alterarAcabamento();
+                controleDeAcabamento.alterarAcabamento(viewAcabamento);
+                continuar();
                 break;
             case 4:
-                //deletarAcabamento();
+                controleDeAcabamento.deletarAcabamento(viewAcabamento);
+                continuar();
                 break;
             case 5:
                 Prompt.limparConsole();

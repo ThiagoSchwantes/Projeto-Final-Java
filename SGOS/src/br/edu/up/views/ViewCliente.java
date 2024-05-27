@@ -7,6 +7,7 @@ import br.edu.up.util.Prompt;
 public class ViewCliente {
     
     ControleDeClientes controle = new ControleDeClientes(null);
+
     public Cliente cadastrarCliente(){
 
         Integer clienteId = controle.getProximoId();
@@ -29,7 +30,6 @@ public class ViewCliente {
     }
 
     public Cliente alterarCliente(){
-
         
         String nomeCliente = Prompt.lerLinha("Informe o nome do cliente: ");
         String rg = Prompt.lerLinha("Informe o RG do cliente: ");
