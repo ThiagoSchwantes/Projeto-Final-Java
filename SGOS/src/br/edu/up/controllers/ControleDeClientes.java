@@ -45,7 +45,7 @@ public class ControleDeClientes {
     }
 
     public void alterarCliente(ViewCliente viewCliente){
-        String cpf = viewCliente.getcpf();
+        String cpf = viewCliente.getCpf();
         for (Cliente cliente : clientes) {
             if(cliente.getCpf().equals(cpf)){
                 Cliente clienteAlterado = viewCliente.alterarCliente();
@@ -62,7 +62,7 @@ public class ControleDeClientes {
     }
 
     public void deletarCliente(ViewCliente viewCliente){
-        String cpf = viewCliente.getcpf();
+        String cpf = viewCliente.getCpf();
         Iterator<Cliente> iterator = clientes.iterator();
         while (iterator.hasNext()) {
             Cliente cliente = iterator.next();
