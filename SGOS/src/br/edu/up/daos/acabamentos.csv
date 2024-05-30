@@ -1,2 +1,9 @@
 acabamentoId;nomeAcabamento;descricao
-1;acabamento foda;foda pra caralho
+1;Soldar lona e prender ilh�s;ap�s a impress�o,refila a lona e passa pela m�quina de solda e depois passa pela ilhoseira prendendo o ilh�s
+2;Acabamento para banner;ap�s a impress�o,refila a lona,solda para formar as bolsas do banner e coloca as madeiras com barbante
+3;Sobra;sobra � um espa�o branco que fica em volta da lona para que ela possa ser esticada
+4;Acabamento em quadro;ap�s a impress�o a lona � esticado em um quadro de metalon para instala��o
+5;Acabamento refile;Ap�s a impress�o � feito o refile manual podendo ser adesivo ou lona
+6;Acabamento depile e mascarar;ap�s a impress�o do corte contorno ou recorte do adesivo � deito o depile do excesso de adesivo e depois � mascarado se necess�rio
+7;Instala��o de adesivo;ap�s a produ��o � necess�rio ir at� o cliente instalar/aplicar
+8;Instala��o de lona;ap�s a produ��o � necess�rio ir ao cliente instalar a lona
