@@ -1,2 +1,8 @@
 pagamentoId;nomePagamento
-1;dinheiro
+1;Dinheiro
+2;Cart�o de Cr�dito
+3;Cart�o de d�bito
+4;PIX
+5;Cheque
+6;Tranfer�ncia banc�ria
+7;Boleto banc�rio
