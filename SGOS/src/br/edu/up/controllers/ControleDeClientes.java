@@ -5,15 +5,15 @@ import java.util.Iterator;
 import java.util.List;
 import br.edu.up.models.Cliente;
 import br.edu.up.views.ViewCliente;
-import br.edu.up.daos.GereciadorDeArquivosDAO;
+import br.edu.up.daos.GereciadorDeClientesDAO;
 
 public class ControleDeClientes {
     private List<Cliente> clientes;
-    private GereciadorDeArquivosDAO dao;
+    private GereciadorDeClientesDAO dao;
     private int maiorId;
 
     public ControleDeClientes(List<Cliente> clientes) {
-        dao = new GereciadorDeArquivosDAO();
+        dao = new GereciadorDeClientesDAO();
         if (clientes == null) {
             this.clientes = new ArrayList<>();
         } else {

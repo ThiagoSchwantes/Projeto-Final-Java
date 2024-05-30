@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import br.edu.up.models.*;
 
-public class GereciadorDeArquivosDAO {
+public class GereciadorDeClientesDAO {
     private String header = "";
     private String nomeDoArquivo = "C:\\Users\\User\\Desktop\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\clientes.csv";
     List<Cliente> listaDeClientes = new ArrayList<>();
