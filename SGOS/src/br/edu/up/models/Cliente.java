@@ -73,7 +73,7 @@ public class Cliente {
 
     public void setCpf(String cpf) {
         if (cpf == null || cpf.trim().isEmpty() || !isValidCPF(cpf)) {
-            throw new IllegalArgumentException("CPF inválido");
+            throw new IllegalArgumentException("CPF inválido. O formato deve ser 123.456.789-00.");
         }
         this.cpf = cpf;
     }
@@ -137,36 +137,40 @@ public class Cliente {
     }
 
     private boolean isValidCPF(String cpf) {
-        if (cpf == null || cpf.length() != 11 || !cpf.matches("\\d+")) {
+        if (cpf == null || cpf.length() != 14 || !cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
             return false;
         }
-
+    
+        // Remove pontos e hífen
+        cpf = cpf.replace(".", "").replace("-", "");
+    
         if (cpf.chars().distinct().count() == 1) {
             return false;
         }
-
+    
         int sum = 0;
         for (int i = 0; i < 9; i++) {
             sum += (cpf.charAt(i) - '0') * (10 - i);
         }
-
+    
         int checkDigit1 = 11 - (sum % 11);
         if (checkDigit1 >= 10) {
             checkDigit1 = 0;
         }
-
+    
         sum = 0;
         for (int i = 0; i < 10; i++) {
             sum += (cpf.charAt(i) - '0') * (11 - i);
         }
-
+    
         int checkDigit2 = 11 - (sum % 11);
         if (checkDigit2 >= 10) {
             checkDigit2 = 0;
         }
-
+    
         return checkDigit1 == (cpf.charAt(9) - '0') && checkDigit2 == (cpf.charAt(10) - '0');
     }
+    
 
     private boolean isValidCEP(String cep) {
         return cep != null && cep.matches("\\d{5}-\\d{3}");

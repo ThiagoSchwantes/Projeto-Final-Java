@@ -68,7 +68,7 @@ public class ViewCliente {
 
     private String lerCpf() {
         while (true) {
-            String cpf = Prompt.lerLinha("Informe o CPF do cliente: ");
+            String cpf = Prompt.lerLinha("Informe o CPF do cliente (formato: 123.456.789-00): ");
             try {
                 Cliente cliente = new Cliente();
                 cliente.setCpf(cpf);

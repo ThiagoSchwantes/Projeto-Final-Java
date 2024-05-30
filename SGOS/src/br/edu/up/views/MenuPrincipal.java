@@ -21,7 +21,7 @@ public class MenuPrincipal {
     Scanner scanner = new Scanner(System.in);
 
     public void mostrarMenu(){
-
+        Prompt.linhaEmBranco();
         Prompt.separador();
         Prompt.imprimir("MENU PRINCIPAL");
         Prompt.separador();
