@@ -11,7 +11,7 @@ public class ViewEquipamento {
     public Equipamento cadastrarEquipamento(){
 
         Integer equipamentoId = controleDeEquipamento.getProximoId();
-        String nomeEquipamento = Prompt.lerLinha("Informe o nome do equipamento: ");
+        String nomeEquipamento = lerNomeEquipamento();
         String descricao = Prompt.lerLinha("Informe a descrição do equipamento: ");
 
         Equipamento equipamento = new Equipamento(equipamentoId,nomeEquipamento,descricao);
@@ -27,11 +27,24 @@ public class ViewEquipamento {
 
     public Equipamento alterarEquipamento(){
         
-        String nomeEquipamento = Prompt.lerLinha("Informe o nome do equipamento: ");
+        String nomeEquipamento = lerNomeEquipamento();
         String descricao = Prompt.lerLinha("Informe a descrição do equipamento: ");
 
         Equipamento equipamentoAlterado = new Equipamento(nomeEquipamento,descricao);
 
         return equipamentoAlterado;
+    }
+
+    private String lerNomeEquipamento() {
+        while (true) {
+            String nomeEquipamento = Prompt.lerLinha("Informe o nome do equipamento: ");
+            try {
+                Equipamento equipamento = new Equipamento();
+                equipamento.setNomeEquipamento(nomeEquipamento);
+                return nomeEquipamento;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

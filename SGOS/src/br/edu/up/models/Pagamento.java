@@ -4,6 +4,9 @@ public class Pagamento {
     private Integer pagamentoId;
     private String nomePagamento;
 
+    public Pagamento() {
+    }
+
     public Pagamento(Integer pagamentoId, String nomePagamento) {
         this.pagamentoId = pagamentoId;
         this.nomePagamento = nomePagamento;
@@ -27,10 +30,13 @@ public class Pagamento {
     }
 
     public void setNomePagamento(String nomePagamento) {
+        if (nomePagamento == null || nomePagamento.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome do pagamento não pode ser nulo ou vazio");
+        }
         this.nomePagamento = nomePagamento;
     }
 
-    
+
 
     @Override
     public String toString() {

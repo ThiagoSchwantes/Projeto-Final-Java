@@ -6,6 +6,9 @@ public class Equipamento {
     private String nomeEquipamento;
     private String descricao;
     
+    public Equipamento() {
+    }
+
     public Equipamento(Integer equipamentoId, String nomeEquipamento, String descricao) {
         this.equipamentoId = equipamentoId;
         this.nomeEquipamento = nomeEquipamento;
@@ -30,6 +33,9 @@ public class Equipamento {
     }
 
     public void setNomeEquipamento(String nomeEquipamento) {
+        if (nomeEquipamento == null || nomeEquipamento.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome do equipamento não pode ser nulo ou vazio");
+        }
         this.nomeEquipamento = nomeEquipamento;
     }
 

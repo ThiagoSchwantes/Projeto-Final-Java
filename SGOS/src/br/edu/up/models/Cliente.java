@@ -136,18 +136,15 @@ public class Cliente {
         return clienteId + ";" + nomeCliente + ";" + rg + ";" + cpf + ";" + cep + ";" + endereco + ";" + bairro + ";" + cidade;
     }
 
-    // Validação de CPF
     private boolean isValidCPF(String cpf) {
         if (cpf == null || cpf.length() != 11 || !cpf.matches("\\d+")) {
             return false;
         }
 
-        // Verifica se todos os dígitos são iguais
         if (cpf.chars().distinct().count() == 1) {
             return false;
         }
 
-        // Cálculo do dígito verificador
         int sum = 0;
         for (int i = 0; i < 9; i++) {
             sum += (cpf.charAt(i) - '0') * (10 - i);
@@ -171,7 +168,6 @@ public class Cliente {
         return checkDigit1 == (cpf.charAt(9) - '0') && checkDigit2 == (cpf.charAt(10) - '0');
     }
 
-    // Validação de CEP
     private boolean isValidCEP(String cep) {
         return cep != null && cep.matches("\\d{5}-\\d{3}");
     }

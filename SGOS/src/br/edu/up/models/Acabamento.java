@@ -5,6 +5,9 @@ public class Acabamento {
     private String nomeAcabamento;
     private String descricao;
 
+    public Acabamento() {
+    }
+
     public Acabamento(Integer acabamentoId, String nomeAcabamento, String descricao) {
         this.acabamentoId = acabamentoId;
         this.nomeAcabamento = nomeAcabamento;
@@ -29,6 +32,9 @@ public class Acabamento {
     }
 
     public void setNomeAcabamento(String nomeAcabamento) {
+        if (nomeAcabamento == null || nomeAcabamento.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome do acabamento não pode ser nulo ou vazio");
+        }
         this.nomeAcabamento = nomeAcabamento;
     }
 

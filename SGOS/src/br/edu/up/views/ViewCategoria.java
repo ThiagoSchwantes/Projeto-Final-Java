@@ -11,7 +11,7 @@ public class ViewCategoria {
     public Categoria cadastrarCategoria(){
 
         Integer categoriaId = controleDeCategoria.getProximoId();
-        String nomeCategoria = Prompt.lerLinha("Informe o nome da categoria: ");
+        String nomeCategoria = lerNomeCategoria();
         String descricao = Prompt.lerLinha("Informe a descrição da categoria: ");
 
         Categoria categoria = new Categoria(categoriaId,nomeCategoria,descricao);
@@ -27,11 +27,24 @@ public class ViewCategoria {
 
     public Categoria alterarCategoria(){
         
-        String nomeCategoria = Prompt.lerLinha("Informe o nome da categoria: ");
+        String nomeCategoria = lerNomeCategoria();
         String descricao = Prompt.lerLinha("Informe a descrição da categoria: ");
 
         Categoria categoriaAlterado = new Categoria(nomeCategoria,descricao);
 
         return categoriaAlterado;
+    }
+
+    private String lerNomeCategoria() {
+        while (true) {
+            String nomeCategoria = Prompt.lerLinha("Informe o nome da categoria: ");
+            try {
+                Categoria categoria = new Categoria();
+                categoria.setNomeCategoria(nomeCategoria);
+                return nomeCategoria;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

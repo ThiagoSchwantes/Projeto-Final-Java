@@ -10,7 +10,7 @@ public class ViewPagamento {
     public Pagamento cadastrarPagamento(){
 
         Integer pagamentoId = controleDePagamento.getProximoId();
-        String nomePagamento = Prompt.lerLinha("Informe o nome do pagamento: ");
+        String nomePagamento = lerNomePagamento();
 
         Pagamento pagamento = new Pagamento(pagamentoId,nomePagamento);
         controleDePagamento.adicionarPagamento(pagamento);
@@ -25,10 +25,23 @@ public class ViewPagamento {
 
     public Pagamento alterarPagamento(){
         
-        String nomePagamento = Prompt.lerLinha("Informe o nome do pagamento: ");
+        String nomePagamento = lerNomePagamento();
 
         Pagamento pagamentoAlterado = new Pagamento(nomePagamento);
 
         return pagamentoAlterado;
+    }
+
+    private String lerNomePagamento() {
+        while (true) {
+            String nomePagamento = Prompt.lerLinha("Informe o nome do pagamento: ");
+            try {
+                Pagamento pagamento = new Pagamento();
+                pagamento.setNomePagamento(nomePagamento);
+                return nomePagamento;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

@@ -6,6 +6,9 @@ public class Produto {
     private String nomeProduto;
     private String descricao;
     
+    public Produto() {
+    }
+
     public Produto(Integer produtoId, String nomeProduto, String descricao) {
         this.produtoId = produtoId;
         this.nomeProduto = nomeProduto;
@@ -30,6 +33,9 @@ public class Produto {
     }
 
     public void setNomeProduto(String nomeProduto) {
+        if (nomeProduto == null || nomeProduto.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome do produto não pode ser nulo ou vazio");
+        }
         this.nomeProduto = nomeProduto;
     }
 
