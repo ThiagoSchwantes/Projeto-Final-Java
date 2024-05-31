@@ -1,11 +1,8 @@
 package br.edu.up.controllers;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import br.edu.up.models.Equipamento;
-import br.edu.up.views.ViewEquipamento;
 import br.edu.up.daos.*;
 
 public class ControleDeEquipamento {
@@ -13,13 +10,8 @@ public class ControleDeEquipamento {
     private GerenciadorDeEquipamentoDAO daoEquipamento;
     private int maiorId;
 
-    public ControleDeEquipamento(List<Equipamento> equipamentos) {
+    public ControleDeEquipamento() {
         daoEquipamento = new GerenciadorDeEquipamentoDAO();
-        if (equipamentos == null) {
-            this.equipamentos = new ArrayList<>();
-        } else {
-            this.equipamentos = equipamentos;
-        }
         this.equipamentos = daoEquipamento.getEquipamentos();
         this.maiorId = 0;
 
@@ -39,11 +31,9 @@ public class ControleDeEquipamento {
         daoEquipamento.gravarArquivo();
     }
 
-    public void alterarEquipamento(ViewEquipamento viewEquipamento){
-        Integer id = viewEquipamento.getId();
+    public void alterarEquipamento(Integer id, Equipamento equipamentoAlterado){
         for (Equipamento equipamento : equipamentos) {
             if(equipamento.getEquipamentoId().equals(id)){
-                Equipamento equipamentoAlterado = viewEquipamento.alterarEquipamento();
                 equipamento.setNomeEquipamento(equipamentoAlterado.getNomeEquipamento());
                 equipamento.setDescricao(equipamentoAlterado.getDescricao());
                 break;
@@ -52,8 +42,7 @@ public class ControleDeEquipamento {
         daoEquipamento.gravarArquivo();
     }
 
-    public void deletarEquipamento(ViewEquipamento viewEquipamento){
-        Integer id = viewEquipamento.getId();
+    public void deletarEquipamento(Integer id){
         Iterator<Equipamento> iterator = equipamentos.iterator();
         while (iterator.hasNext()) {
             Equipamento equipamento = iterator.next();

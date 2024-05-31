@@ -12,7 +12,7 @@ import br.edu.up.models.Produto;
 
 public class GerenciadorDeProdutosDAO {
     private String header = "produtoId;nomeProduto;descricao";
-    private String nomeDoArquivo = "C:\\Users\\User\\Desktop\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\produtos.csv";
+    private String nomeDoArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\produtos.csv";
     List<Produto> listaDeProdutos = new ArrayList<>();
 
     public List<Produto> getProdutos() {

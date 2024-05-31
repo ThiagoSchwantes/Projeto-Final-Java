@@ -179,21 +179,20 @@ public class Prompt {
  /**
    * Limpa o console
    */
-	@SuppressWarnings("deprecation")
 	public static void limparConsole(){
-			try{
-					if (System.getProperty("os.name").contains("Windows")){
-							new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-					}
-					else{
-							Runtime.getRuntime().exec("clear");
-					}
-			}
-			catch (final Exception e)
-			{
-				 for (int i = 0; i < 100; i++) {
-							Prompt.imprimir("\n");
-				 }
-			}
+		try{
+				if (System.getProperty("os.name").contains("Windows")){
+						new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+				}
+				else{
+						Runtime.getRuntime().exec("clear");
+				}
+		}
+		catch (final Exception e)
+		{
+				for (int i = 0; i < 100; i++) {
+						Prompt.imprimir("\n");
+				}
+		}
 	}
 }

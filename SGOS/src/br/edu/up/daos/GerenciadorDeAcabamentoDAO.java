@@ -12,7 +12,7 @@ import br.edu.up.models.Acabamento;
 
 public class GerenciadorDeAcabamentoDAO {
     private String header = "acabamentoId;nomeAcabamento;descricao";
-    private String nomeDoArquivo = "C:\\Users\\User\\Desktop\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\acabamentos.csv";
+    private String nomeDoArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\acabamentos.csv";
     List<Acabamento> listaDeAcabamentos = new ArrayList<>();
 
     public List<Acabamento> getAcabamentos() {

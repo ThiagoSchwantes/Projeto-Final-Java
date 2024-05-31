@@ -12,7 +12,7 @@ import br.edu.up.models.Pagamento;
 
 public class GerenciadorDePagamentoDAO {
     private String header = "pagamentoId;nomePagamento";
-    private String nomeDoArquivo = "C:\\Users\\User\\Desktop\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\pagamentos.csv";
+    private String nomeDoArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\pagamentos.csv";
     List<Pagamento> listaDePagamentos = new ArrayList<>();
 
     public List<Pagamento> getPagamentos() {

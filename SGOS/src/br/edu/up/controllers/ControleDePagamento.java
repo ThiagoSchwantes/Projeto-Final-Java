@@ -1,11 +1,8 @@
 package br.edu.up.controllers;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import br.edu.up.models.Pagamento;
-import br.edu.up.views.ViewPagamento;
 import br.edu.up.daos.GerenciadorDePagamentoDAO;
 
 public class ControleDePagamento {
@@ -13,17 +10,12 @@ public class ControleDePagamento {
     private GerenciadorDePagamentoDAO daoPagamento;
     private int maiorId;
 
-    public ControleDePagamento(List<Pagamento> pagamentos) {
+    public ControleDePagamento() {
         daoPagamento = new GerenciadorDePagamentoDAO();
-        if (pagamentos == null) {
-            this.pagamentos = new ArrayList<>();
-        } else {
-            this.pagamentos = pagamentos;
-        }
-        this.pagamentos = daoPagamento.getPagamentos();
-        this.maiorId = 0;
+        pagamentos = daoPagamento.getPagamentos();
+        maiorId = 0;
 
-        for (Pagamento pagamento : this.pagamentos) {
+        for (Pagamento pagamento : pagamentos) {
             if (pagamento.getPagamentoId() > maiorId) {
                 maiorId = pagamento.getPagamentoId();
             }
@@ -39,11 +31,9 @@ public class ControleDePagamento {
         daoPagamento.gravarArquivo();
     }
 
-    public void alterarPagamento(ViewPagamento viewPagamento) {
-        Integer id = viewPagamento.getId();
+    public void alterarPagamento(Integer id, Pagamento pagamentoAlterado) {
         for (Pagamento pagamento : pagamentos) {
             if (pagamento.getPagamentoId().equals(id)) {
-                Pagamento pagamentoAlterado = viewPagamento.alterarPagamento();
                 pagamento.setNomePagamento(pagamentoAlterado.getNomePagamento());
                 break;
             }
@@ -51,8 +41,7 @@ public class ControleDePagamento {
         daoPagamento.gravarArquivo();
     }
 
-    public void deletarPagamento(ViewPagamento viewPagamento) {
-        Integer id = viewPagamento.getId();
+    public void deletarPagamento(Integer id){
         Iterator<Pagamento> iterator = pagamentos.iterator();
         while (iterator.hasNext()) {
             Pagamento pagamento = iterator.next();

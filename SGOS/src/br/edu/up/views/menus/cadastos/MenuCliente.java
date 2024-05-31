@@ -1,15 +1,73 @@
-package br.edu.up.views;
+package br.edu.up.views.menus.cadastos;
+
+import java.util.List;
 
 import br.edu.up.controllers.ControleDeClientes;
 import br.edu.up.models.Cliente;
 import br.edu.up.util.Prompt;
 
-public class ViewCliente {
-    
-    ControleDeClientes controle = new ControleDeClientes(null);
+public class MenuCliente {
+    ControleDeClientes controleDeClientes = new ControleDeClientes();
+
+    public void mostrar(){
+        Prompt.limparConsole();
+
+        Prompt.separador();
+        Prompt.imprimir("MENU DE CLIENTE");
+        Prompt.separador();
+
+        Prompt.imprimir("Digite uma das opções:");
+        Prompt.imprimir("\t1 - Cadastrar cliente");
+        Prompt.imprimir("\t2 - Listar clientes");
+        Prompt.imprimir("\t3 - Alterar cliente");
+        Prompt.imprimir("\t4 - Deletar cliente");
+        Prompt.imprimir("\t5 - Voltar para o menu de cadastro");
+
+        int opcao1 = Prompt.lerInteiro("Digite aqui: ");
+        boolean sair = false;
+
+        switch (opcao1) {
+            case 1:
+                cadastrarCliente();
+                break;
+            case 2:
+                List<Cliente> clientes = controleDeClientes.getClientes();
+                if(clientes.isEmpty()){
+                    Prompt.imprimir("Não há clientes cadastrados.");
+                }else{
+                    for (Cliente cliente : clientes) {
+                        Prompt.imprimir(cliente.toStringBasico());
+                    }
+                }
+                break;
+            case 3:
+                String cpfAlterar = getCpf();
+                Cliente clienteAlterado = alterarCliente();
+
+                controleDeClientes.alterarCliente(cpfAlterar, clienteAlterado);
+                break;
+            case 4:
+                String cpfDeletar = getCpf();
+
+                controleDeClientes.deletarCliente(cpfDeletar);
+                break;
+            case 5:
+                sair = true;
+                break;
+            default:
+                Prompt.limparConsole();
+                Prompt.imprimir("Valor Inválido.");
+                break;
+        }
+        if(!sair){
+            Prompt.separador();
+            Prompt.pressionarEnter();
+            mostrar();
+        }
+    }
 
     public Cliente cadastrarCliente() {
-        Integer clienteId = controle.getProximoId();
+        Integer clienteId = controleDeClientes.getProximoId();
         String nomeCliente = lerNomeCliente();
         String rg = lerRg();
         String cpf = lerCpf();
@@ -19,7 +77,7 @@ public class ViewCliente {
         String cidade = lerCidade();
 
         Cliente cliente = new Cliente(clienteId, nomeCliente, rg, cpf, cep, endereco, bairro, cidade);
-        controle.adicionarCliente(cliente);
+        controleDeClientes.adicionarCliente(cliente);
         return cliente;
     }
 
@@ -48,7 +106,7 @@ public class ViewCliente {
                 cliente.setNomeCliente(nomeCliente);
                 return nomeCliente;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -61,7 +119,7 @@ public class ViewCliente {
                 cliente.setRg(rg);
                 return rg;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -74,7 +132,7 @@ public class ViewCliente {
                 cliente.setCpf(cpf);
                 return cpf;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -87,7 +145,7 @@ public class ViewCliente {
                 cliente.setCep(cep);
                 return cep;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -100,7 +158,7 @@ public class ViewCliente {
                 cliente.setEndereco(endereco);
                 return endereco;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -113,7 +171,7 @@ public class ViewCliente {
                 cliente.setBairro(bairro);
                 return bairro;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -126,7 +184,7 @@ public class ViewCliente {
                 cliente.setCidade(cidade);
                 return cidade;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                Prompt.imprimir(e.getMessage());
             }
         }
     }

@@ -12,13 +12,13 @@ import br.edu.up.models.*;
 
 public class GereciadorDeClientesDAO {
     private String header = "";
-    private String nomeDoArquivo = "C:\\Users\\User\\Desktop\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\clientes.csv";
+    private String localArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\clientes.csv";
     List<Cliente> listaDeClientes = new ArrayList<>();
 
     public List<Cliente> getClientes(){
 
         try {
-            File arquivoLeitura = new File(nomeDoArquivo);
+            File arquivoLeitura = new File(localArquivo);
             Scanner leitor = new Scanner(arquivoLeitura);
             header = leitor.nextLine();
 
@@ -49,7 +49,7 @@ public class GereciadorDeClientesDAO {
         
         try {
 
-            FileWriter arquivoGravar = new FileWriter(nomeDoArquivo);
+            FileWriter arquivoGravar = new FileWriter(localArquivo);
             PrintWriter gravador = new PrintWriter(arquivoGravar);
             gravador.println(header);
 

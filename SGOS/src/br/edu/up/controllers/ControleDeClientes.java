@@ -1,10 +1,8 @@
 package br.edu.up.controllers;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import br.edu.up.models.Cliente;
-import br.edu.up.views.ViewCliente;
 import br.edu.up.daos.GereciadorDeClientesDAO;
 
 public class ControleDeClientes {
@@ -12,15 +10,10 @@ public class ControleDeClientes {
     private GereciadorDeClientesDAO dao;
     private int maiorId;
 
-    public ControleDeClientes(List<Cliente> clientes) {
+    public ControleDeClientes() {
         dao = new GereciadorDeClientesDAO();
-        if (clientes == null) {
-            this.clientes = new ArrayList<>();
-        } else {
-            this.clientes = clientes;
-        }
-        this.clientes = dao.getClientes();
-        this.maiorId = 0;
+        clientes = dao.getClientes();
+        maiorId = 0;
 
         for (Cliente cliente : this.clientes) {
             if (cliente.getClienteId() > maiorId) {
@@ -32,6 +25,7 @@ public class ControleDeClientes {
     public int getProximoId() {
         return ++maiorId;
     }
+
     public List<Cliente> getClientes() {
         return clientes;
     }
@@ -44,11 +38,9 @@ public class ControleDeClientes {
         dao.gravarArquivo();
     }
 
-    public void alterarCliente(ViewCliente viewCliente){
-        String cpf = viewCliente.getCpf();
+    public void alterarCliente(String cpf, Cliente clienteAlterado){
         for (Cliente cliente : clientes) {
             if(cliente.getCpf().equals(cpf)){
-                Cliente clienteAlterado = viewCliente.alterarCliente();
                 cliente.setNomeCliente(clienteAlterado.getNomeCliente());
                 cliente.setRg(clienteAlterado.getRg());
                 cliente.setCep(clienteAlterado.getCep());
@@ -61,8 +53,7 @@ public class ControleDeClientes {
         dao.gravarArquivo();
     }
 
-    public void deletarCliente(ViewCliente viewCliente){
-        String cpf = viewCliente.getCpf();
+    public void deletarCliente(String cpf){
         Iterator<Cliente> iterator = clientes.iterator();
         while (iterator.hasNext()) {
             Cliente cliente = iterator.next();

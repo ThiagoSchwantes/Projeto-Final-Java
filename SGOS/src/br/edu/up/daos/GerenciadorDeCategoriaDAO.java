@@ -12,7 +12,7 @@ import br.edu.up.models.Categoria;
 
 public class GerenciadorDeCategoriaDAO {
     private String header = "categoriaId;nomeCategoria;descricao";
-    private String nomeDoArquivo = "C:\\Users\\User\\Desktop\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\categorias.csv";
+    private String nomeDoArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\categorias.csv";
     List<Categoria> listaDeCategorias = new ArrayList<>();
 
     public List<Categoria> getCategorias() {

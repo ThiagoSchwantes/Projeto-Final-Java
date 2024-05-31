@@ -1,11 +1,8 @@
 package br.edu.up.controllers;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import br.edu.up.models.Categoria;
-import br.edu.up.views.ViewCategoria;
 import br.edu.up.daos.GerenciadorDeCategoriaDAO;
 
 public class ControleDeCategoria {
@@ -13,13 +10,9 @@ public class ControleDeCategoria {
     private GerenciadorDeCategoriaDAO daoCategoria;
     private int maiorId;
 
-    public ControleDeCategoria(List<Categoria> categorias) {
+    public ControleDeCategoria() {
         daoCategoria = new GerenciadorDeCategoriaDAO();
-        if (categorias == null) {
-            this.categorias = new ArrayList<>();
-        } else {
-            this.categorias = categorias;
-        }
+
         this.categorias = daoCategoria.getCategorias();
         this.maiorId = 0;
 
@@ -39,11 +32,9 @@ public class ControleDeCategoria {
         daoCategoria.gravarArquivo();
     }
 
-    public void alterarCategoria(ViewCategoria viewCategoria) {
-        Integer id = viewCategoria.getId();
+    public void alterarCategoria(Integer id, Categoria categoriaAlterada) {
         for (Categoria categoria : categorias) {
             if (categoria.getCategoriaId().equals(id)) {
-                Categoria categoriaAlterada = viewCategoria.alterarCategoria();
                 categoria.setNomeCategoria(categoriaAlterada.getNomeCategoria());
                 categoria.setDescricao(categoriaAlterada.getDescricao());
                 break;
@@ -52,8 +43,7 @@ public class ControleDeCategoria {
         daoCategoria.gravarArquivo();
     }
 
-    public void deletarCategoria(ViewCategoria viewCategoria) {
-        Integer id = viewCategoria.getId();
+    public void deletarCategoria(Integer id) {
         Iterator<Categoria> iterator = categorias.iterator();
         while (iterator.hasNext()) {
             Categoria categoria = iterator.next();

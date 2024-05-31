@@ -1,11 +1,8 @@
 package br.edu.up.controllers;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import br.edu.up.models.*;
-import br.edu.up.views.ViewAcabamento;
 import br.edu.up.daos.*;
 
 public class ControleDeAcabamento {
@@ -13,13 +10,9 @@ public class ControleDeAcabamento {
     private GerenciadorDeAcabamentoDAO daoAcabamento;
     private int maiorId;
 
-    public ControleDeAcabamento(List<Acabamento> acabamentos) {
+    public ControleDeAcabamento() {
         daoAcabamento = new GerenciadorDeAcabamentoDAO();
-        if (acabamentos == null) {
-            this.acabamentos = new ArrayList<>();
-        } else {
-            this.acabamentos = acabamentos;
-        }
+
         this.acabamentos = daoAcabamento.getAcabamentos();
         this.maiorId = 0;
 
@@ -39,11 +32,9 @@ public class ControleDeAcabamento {
         daoAcabamento.gravarArquivo();
     }
 
-    public void alterarAcabamento(ViewAcabamento viewAcabamento){
-        Integer id = viewAcabamento.getId();
+    public void alterarAcabamento(Integer id, Acabamento acabamentoAlterado){
         for (Acabamento acabamento : acabamentos) {
             if(acabamento.getAcabamentoId().equals(id)){
-                Acabamento acabamentoAlterado = viewAcabamento.alterarAcabamento();
                 acabamento.setNomeAcabamento(acabamentoAlterado.getNomeAcabamento());
                 acabamento.setDescricao(acabamentoAlterado.getDescricao());
                 break;
@@ -52,8 +43,7 @@ public class ControleDeAcabamento {
         daoAcabamento.gravarArquivo();
     }
 
-    public void deletarAcabamento(ViewAcabamento viewAcabamento){
-        Integer id = viewAcabamento.getId();
+    public void deletarAcabamento(Integer id){
         Iterator<Acabamento> iterator = acabamentos.iterator();
         while (iterator.hasNext()) {
             Acabamento acabamento = iterator.next();

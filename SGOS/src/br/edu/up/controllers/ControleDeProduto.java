@@ -1,24 +1,18 @@
 package br.edu.up.controllers;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import br.edu.up.daos.GerenciadorDeProdutosDAO;
 import br.edu.up.models.Produto;
-import br.edu.up.views.ViewProduto;
 
 public class ControleDeProduto {
     private List<Produto> produtos;
     private GerenciadorDeProdutosDAO daoProduto;
     private int maiorId;
 
-    public ControleDeProduto(List<Produto> produtos) {
+    public ControleDeProduto() {
         daoProduto = new GerenciadorDeProdutosDAO();
-        if (produtos == null) {
-            this.produtos = new ArrayList<>();
-        } else {
-            this.produtos = produtos;
-        }
+
         this.produtos = daoProduto.getProdutos();
         this.maiorId = 0;
 
@@ -38,11 +32,9 @@ public class ControleDeProduto {
         daoProduto.gravarArquivo();
     }
 
-    public void alterarProduto(ViewProduto viewProduto){
-        Integer id = viewProduto.getId();
+    public void alterarProduto(Integer id, Produto produtoAlterado){
         for (Produto produto : produtos) {
             if(produto.getProdutoId().equals(id)){
-                Produto produtoAlterado = viewProduto.alterarProduto();
                 produto.setNomeProduto(produtoAlterado.getNomeProduto());
                 produto.setDescricao(produtoAlterado.getDescricao());
                 break;
@@ -51,8 +43,7 @@ public class ControleDeProduto {
         daoProduto.gravarArquivo();
     }
 
-    public void deletarProduto(ViewProduto viewProduto){
-        Integer id = viewProduto.getId();
+    public void deletarProduto(Integer id){
         Iterator<Produto> iterator = produtos.iterator();
         while (iterator.hasNext()) {
             Produto produto = iterator.next();

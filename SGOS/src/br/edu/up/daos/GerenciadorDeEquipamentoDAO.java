@@ -12,7 +12,7 @@ import br.edu.up.models.Equipamento;
 
 public class GerenciadorDeEquipamentoDAO {
     private String header = "equipamentoId;nomeEquipamento;descricao";
-    private String nomeDoArquivo = "C:\\Users\\User\\Desktop\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\equipamentos.csv";
+    private String nomeDoArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\equipamentos.csv";
     List<Equipamento> listaDeEquipamentos = new ArrayList<>();
 
     public List<Equipamento> getEquipamentos() {
