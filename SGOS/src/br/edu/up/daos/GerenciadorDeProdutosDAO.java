@@ -6,14 +6,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import br.edu.up.models.Produto;
+import br.edu.up.util.EnvLoader;
 
 public class GerenciadorDeProdutosDAO {
     private String header = "produtoId;nomeProduto;descricao";
-    private String nomeDoArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\produtos.csv";
+    private String nomeDoArquivo;
     List<Produto> listaDeProdutos = new ArrayList<>();
+
+    public GerenciadorDeProdutosDAO() {
+        Map<String, String> env = EnvLoader.loadEnvFile("SGOS/.env");
+        String csvDirectory = env.get("CSV_DIRECTORY");
+        nomeDoArquivo = csvDirectory + "/produtos.csv";
+    }
 
     public List<Produto> getProdutos() {
         try {
@@ -26,7 +34,7 @@ public class GerenciadorDeProdutosDAO {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 String[] dados = linha.split(";");
-                
+
                 Integer produtoId = Integer.parseInt(dados[0]);
                 String nomeProduto = dados[1];
                 String descricao = dados[2];

@@ -6,14 +6,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import br.edu.up.models.Acabamento;
+import br.edu.up.util.EnvLoader;
 
 public class GerenciadorDeAcabamentoDAO {
     private String header = "acabamentoId;nomeAcabamento;descricao";
-    private String nomeDoArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\acabamentos.csv";
+    private String nomeDoArquivo;
     List<Acabamento> listaDeAcabamentos = new ArrayList<>();
+
+    public GerenciadorDeAcabamentoDAO() {
+        Map<String, String> env = EnvLoader.loadEnvFile("SGOS/.env");
+        String csvDirectory = env.get("CSV_DIRECTORY");
+        nomeDoArquivo = csvDirectory + "/acabamentos.csv";
+    }
 
     public List<Acabamento> getAcabamentos() {
         try {
@@ -26,7 +34,7 @@ public class GerenciadorDeAcabamentoDAO {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 String[] dados = linha.split(";");
-                
+
                 Integer acabamentoId = Integer.parseInt(dados[0]);
                 String nomeAcabamento = dados[1];
                 String descricao = dados[2];
@@ -35,7 +43,7 @@ public class GerenciadorDeAcabamentoDAO {
                 listaDeAcabamentos.add(acabamento);
             }
             leitor.close();
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Arquivo não encontrado!");
         }
         return listaDeAcabamentos;
@@ -55,5 +63,4 @@ public class GerenciadorDeAcabamentoDAO {
             System.out.println("Não foi possível gravar o arquivo!");
         }
     }
-    
 }

@@ -3,15 +3,15 @@ package br.edu.up.controllers;
 import java.util.Iterator;
 import java.util.List;
 import br.edu.up.models.Cliente;
-import br.edu.up.daos.GereciadorDeClientesDAO;
+import br.edu.up.daos.GerenciadorDeClientesDAO;
 
 public class ControleDeClientes {
     private List<Cliente> clientes;
-    private GereciadorDeClientesDAO dao;
+    private GerenciadorDeClientesDAO dao;
     private int maiorId;
 
     public ControleDeClientes() {
-        dao = new GereciadorDeClientesDAO();
+        dao = new GerenciadorDeClientesDAO();
         clientes = dao.getClientes();
         maiorId = 0;
 

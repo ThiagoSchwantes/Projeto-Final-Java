@@ -6,14 +6,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import br.edu.up.models.Categoria;
+import br.edu.up.util.EnvLoader;
 
 public class GerenciadorDeCategoriaDAO {
     private String header = "categoriaId;nomeCategoria;descricao";
-    private String nomeDoArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\categorias.csv";
+    private String nomeDoArquivo;
     List<Categoria> listaDeCategorias = new ArrayList<>();
+
+    public GerenciadorDeCategoriaDAO() {
+        Map<String, String> env = EnvLoader.loadEnvFile("SGOS/.env");
+        String csvDirectory = env.get("CSV_DIRECTORY");
+        nomeDoArquivo = csvDirectory + "/categorias.csv";
+    }
 
     public List<Categoria> getCategorias() {
         try {
@@ -26,7 +34,7 @@ public class GerenciadorDeCategoriaDAO {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 String[] dados = linha.split(";");
-                
+
                 Integer categoriaId = Integer.parseInt(dados[0]);
                 String nomeCategoria = dados[1];
                 String descricao = dados[2];
@@ -56,4 +64,3 @@ public class GerenciadorDeCategoriaDAO {
         }
     }
 }
-

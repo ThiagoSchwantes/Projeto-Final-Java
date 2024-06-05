@@ -6,14 +6,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import br.edu.up.models.Equipamento;
+import br.edu.up.util.EnvLoader;
 
 public class GerenciadorDeEquipamentoDAO {
     private String header = "equipamentoId;nomeEquipamento;descricao";
-    private String nomeDoArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\equipamentos.csv";
+    private String nomeDoArquivo;
     List<Equipamento> listaDeEquipamentos = new ArrayList<>();
+
+    public GerenciadorDeEquipamentoDAO() {
+        Map<String, String> env = EnvLoader.loadEnvFile("SGOS/.env");
+        String csvDirectory = env.get("CSV_DIRECTORY");
+        nomeDoArquivo = csvDirectory + "/equipamentos.csv";
+    }
 
     public List<Equipamento> getEquipamentos() {
         try {
@@ -26,7 +34,7 @@ public class GerenciadorDeEquipamentoDAO {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 String[] dados = linha.split(";");
-                
+
                 Integer equipamentoId = Integer.parseInt(dados[0]);
                 String nomeEquipamento = dados[1];
                 String descricao = dados[2];
@@ -56,4 +64,3 @@ public class GerenciadorDeEquipamentoDAO {
         }
     }
 }
-

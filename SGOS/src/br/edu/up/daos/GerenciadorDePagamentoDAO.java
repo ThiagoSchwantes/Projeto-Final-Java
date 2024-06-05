@@ -6,14 +6,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import br.edu.up.models.Pagamento;
+import br.edu.up.util.EnvLoader;
 
 public class GerenciadorDePagamentoDAO {
     private String header = "pagamentoId;nomePagamento";
-    private String nomeDoArquivo = "C:\\Projeto-Final-Java\\SGOS\\src\\br\\edu\\up\\daos\\csvs\\pagamentos.csv";
+    private String nomeDoArquivo;
     List<Pagamento> listaDePagamentos = new ArrayList<>();
+
+    public GerenciadorDePagamentoDAO() {
+        Map<String, String> env = EnvLoader.loadEnvFile("SGOS/.env");
+        String csvDirectory = env.get("CSV_DIRECTORY");
+        nomeDoArquivo = csvDirectory + "/pagamentos.csv";
+    }
 
     public List<Pagamento> getPagamentos() {
         try {
@@ -26,7 +34,7 @@ public class GerenciadorDePagamentoDAO {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 String[] dados = linha.split(";");
-                
+
                 Integer pagamentoId = Integer.parseInt(dados[0]);
                 String nomePagamento = dados[1];
 
@@ -55,4 +63,3 @@ public class GerenciadorDePagamentoDAO {
         }
     }
 }
-
