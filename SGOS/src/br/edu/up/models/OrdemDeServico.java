@@ -22,10 +22,9 @@ public class OrdemDeServico {
     public OrdemDeServico() {
     }
 
-    public OrdemDeServico(int codigo, LocalDateTime dataEHoraAbertura, Cliente cliente, String funcionario,
+    public OrdemDeServico(Cliente cliente, String funcionario,
         String comentario, ProdutoOrdemServico produtoOS, Status status) {
-        this.codigo = codigo;
-        this.dataEHoraAbertura = dataEHoraAbertura;
+        this.dataEHoraAbertura = LocalDateTime.now();
         this.cliente = cliente;
         this.funcionario = funcionario;
         this.comentario = comentario;

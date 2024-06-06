@@ -63,7 +63,7 @@ public class GerenciadorDeClientesDAO {
             }
             gravador.close();
         } catch (IOException e) {
-            System.out.println("Não foi possível gravar o arquivo!");
+            System.out.println("Não foi possível gravar o arquivo!" + e);
         }
     }
 }
