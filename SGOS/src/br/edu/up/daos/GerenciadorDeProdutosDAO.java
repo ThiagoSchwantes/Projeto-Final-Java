@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import br.edu.up.controllers.ControleDeCategoria;
+import br.edu.up.models.Categoria;
 import br.edu.up.models.Produto;
 import br.edu.up.util.EnvLoader;
 
 public class GerenciadorDeProdutosDAO {
-    private String header = "produtoId;nomeProduto;descricao";
+    private String header = "produtoId;nomeProduto;descricao;categoria";
     private String nomeDoArquivo;
     List<Produto> listaDeProdutos = new ArrayList<>();
 
@@ -24,6 +26,7 @@ public class GerenciadorDeProdutosDAO {
     }
 
     public List<Produto> getProdutos() {
+        ControleDeCategoria controleDeCategoria = new ControleDeCategoria();
         try {
             File arquivoLeitura = new File(nomeDoArquivo);
             Scanner leitor = new Scanner(arquivoLeitura);
@@ -38,8 +41,14 @@ public class GerenciadorDeProdutosDAO {
                 Integer produtoId = Integer.parseInt(dados[0]);
                 String nomeProduto = dados[1];
                 String descricao = dados[2];
+                String nomeCategoria = dados[3];
 
-                Produto produto = new Produto(produtoId, nomeProduto, descricao);
+                Categoria categoria = controleDeCategoria.getCategorias().stream()
+                        .filter(c -> c.getNomeCategoria().equals(nomeCategoria))
+                        .findFirst()
+                        .orElse(null);
+
+                Produto produto = new Produto(produtoId, nomeProduto, descricao, categoria);
                 listaDeProdutos.add(produto);
             }
             leitor.close();

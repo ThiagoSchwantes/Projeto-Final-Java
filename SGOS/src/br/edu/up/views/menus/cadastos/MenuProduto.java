@@ -2,12 +2,15 @@ package br.edu.up.views.menus.cadastos;
 
 import java.util.List;
 
+import br.edu.up.controllers.ControleDeCategoria;
 import br.edu.up.controllers.ControleDeProduto;
+import br.edu.up.models.Categoria;
 import br.edu.up.models.Produto;
 import br.edu.up.util.Prompt;
 
 public class MenuProduto {
     ControleDeProduto controleDeProduto = new ControleDeProduto();
+    ControleDeCategoria controleDeCategoria = new ControleDeCategoria();
 
     public void mostrar(){
         Prompt.limparConsole();
@@ -71,8 +74,9 @@ public class MenuProduto {
         Integer produtoId = controleDeProduto.getProximoId();
         String nomeProduto = lerNomeProduto();
         String descrição = Prompt.lerLinha("Informe a descrição do Produto: ");
+        Categoria categoria = escolherCategoria();
         
-        Produto produto = new Produto(produtoId, nomeProduto, descrição);
+        Produto produto = new Produto(produtoId, nomeProduto, descrição, categoria);
         controleDeProduto.adicionarProduto(produto);
         return produto;
     }
@@ -87,8 +91,9 @@ public class MenuProduto {
         
         String nomeProduto = lerNomeProduto();
         String descricao = Prompt.lerLinha("Informe a descrição do Produto: ");
+        Categoria categoria = escolherCategoria();
 
-        Produto produtoAlterado = new Produto(nomeProduto,descricao);
+        Produto produtoAlterado = new Produto(nomeProduto,descricao, categoria);
         
         return produtoAlterado;
     }
@@ -104,5 +109,20 @@ public class MenuProduto {
                 Prompt.imprimir(e.getMessage());
             }
         }
+    }
+
+    private Categoria escolherCategoria() {
+        List<Categoria> categorias = controleDeCategoria.getCategorias();
+        
+        Prompt.imprimir("Escolha uma categoria:");
+        for (int i = 0; i < categorias.size(); i++) {
+            Prompt.imprimir((i + 1) + " - " + categorias.get(i).getNomeCategoria());
+        }
+        int escolha = Prompt.lerInteiro("Digite o número da categoria: ");
+        if (escolha < 1 || escolha > categorias.size()) {
+            Prompt.imprimir("Escolha inválida.");
+            return escolherCategoria();
+        }
+        return categorias.get(escolha - 1);
     }
 }
