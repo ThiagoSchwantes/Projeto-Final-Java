@@ -9,12 +9,12 @@ import br.edu.up.views.menus.cadastos.MenuPagamento;
 import br.edu.up.views.menus.cadastos.MenuProduto;
 
 public class MenuCadastro {
-    MenuCliente menuCliente = new MenuCliente();
-    MenuProduto menuProduto = new MenuProduto();
-    MenuAcabamento menuAcabamento = new MenuAcabamento();
-    MenuEquipamento menuEquipamento = new MenuEquipamento();
-    MenuCategoria menuCategoria = new MenuCategoria();
-    MenuPagamento menuPagamento = new MenuPagamento();
+    private MenuCliente menuCliente = new MenuCliente();
+    private MenuProduto menuProduto = new MenuProduto();
+    private MenuAcabamento menuAcabamento = new MenuAcabamento();
+    private MenuEquipamento menuEquipamento = new MenuEquipamento();
+    private MenuCategoria menuCategoria = new MenuCategoria();
+    private MenuPagamento menuPagamento = new MenuPagamento();
 
     public void mostrar(){
         Prompt.limparConsole();

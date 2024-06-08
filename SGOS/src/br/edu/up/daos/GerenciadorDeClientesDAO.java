@@ -47,7 +47,7 @@ public class GerenciadorDeClientesDAO {
             }
             leitor.close();
         } catch(Exception e){
-            System.out.println("Arquivo não encontrado!");
+            System.out.println("Arquivo não encontrado! (Cliente)");
         }
         return listaDeClientes;
     }

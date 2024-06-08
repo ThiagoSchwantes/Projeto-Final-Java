@@ -9,8 +9,8 @@ import br.edu.up.models.Produto;
 import br.edu.up.util.Prompt;
 
 public class MenuProduto {
-    ControleDeProduto controleDeProduto = new ControleDeProduto();
-    ControleDeCategoria controleDeCategoria = new ControleDeCategoria();
+    private ControleDeProduto controleDeProduto = new ControleDeProduto();
+    private ControleDeCategoria controleDeCategoria = new ControleDeCategoria();
 
     public void mostrar(){
         Prompt.limparConsole();

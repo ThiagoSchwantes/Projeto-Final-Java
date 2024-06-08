@@ -23,14 +23,25 @@ public class OrdemDeServico {
     }
 
     public OrdemDeServico(Cliente cliente, String funcionario,
-        String comentario, ProdutoOrdemServico produtoOS, Status status) {
+        String comentario, ProdutoOrdemServico produtoOS) {
         this.dataEHoraAbertura = LocalDateTime.now();
         this.cliente = cliente;
         this.funcionario = funcionario;
         this.comentario = comentario;
         this.produtoOS = produtoOS;
-        this.status = status;
+        this.status = Status.EM_PRODUCAO;
     }
+
+    public OrdemDeServico(int codigo, LocalDateTime dataEHoraAbertura, Cliente cliente, String funcionario,
+    String comentario, ProdutoOrdemServico produtoOS) {
+    this.codigo = codigo;
+    this.dataEHoraAbertura = dataEHoraAbertura;
+    this.cliente = cliente;
+    this.funcionario = funcionario;
+    this.comentario = comentario;
+    this.produtoOS = produtoOS;
+    this.status = Status.EM_PRODUCAO;
+}
 
     public int getCodigo() {
         return codigo;
@@ -62,17 +73,17 @@ public class OrdemDeServico {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
-    public ProdutoOrdemServico getProdutoOS() {
-        return produtoOS;
-    }
-    public void setProdutoOS(ProdutoOrdemServico produtoOS) {
-        this.produtoOS = produtoOS;
-    }
     public Status getStatus() {
         return status;
     }
     public void setStatus(Status status) {
         this.status = status;
+    }
+    public ProdutoOrdemServico getProdutoOS() {
+        return produtoOS;
+    }
+    public void setProdutoOS(ProdutoOrdemServico produtoOS) {
+        this.produtoOS = produtoOS;
     }
 
     @Override
@@ -81,7 +92,8 @@ public class OrdemDeServico {
                 + ", funcionario=" + funcionario + ", comentario=" + comentario + ", produtoOS=" + produtoOS
                 + ", status=" + status + "]";
     }
-
-
     
+    public String toCSV(){
+        return codigo + ";" + dataEHoraAbertura + ";" + cliente.getClienteId() + ";" + funcionario + ";" + comentario + ";" + produtoOS.getProdutoOrdemServicoId();
+    }
 }

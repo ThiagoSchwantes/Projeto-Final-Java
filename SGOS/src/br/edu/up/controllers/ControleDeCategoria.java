@@ -2,6 +2,7 @@ package br.edu.up.controllers;
 
 import java.util.Iterator;
 import java.util.List;
+
 import br.edu.up.models.Categoria;
 import br.edu.up.daos.GerenciadorDeCategoriaDAO;
 
@@ -30,6 +31,24 @@ public class ControleDeCategoria {
     public void adicionarCategoria(Categoria categoria) {
         categorias.add(categoria);
         daoCategoria.gravarArquivo();
+    }
+
+    public Categoria buscar(Integer categoriaId){
+        for (Categoria categoria : categorias) {
+            if(categoria.getCategoriaId() == categoriaId){
+                return categoria;
+            }
+        }
+        return null;
+    }
+
+    public Categoria buscar(String nome){
+        for (Categoria categoria : categorias) {
+            if(categoria.getNomeCategoria().toLowerCase().equals(nome.toLowerCase())){
+                return categoria;
+            }
+        }
+        return null;
     }
 
     public void alterarCategoria(Integer id, Categoria categoriaAlterada) {

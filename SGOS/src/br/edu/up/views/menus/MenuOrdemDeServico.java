@@ -2,9 +2,12 @@ package br.edu.up.views.menus;
 
 import br.edu.up.controllers.ControleDeOrdemDeServico;
 import br.edu.up.util.Prompt;
+import br.edu.up.views.menus.ordem_de_servicos.MenuDeCadastroOS;
 
 public class MenuOrdemDeServico {
-    ControleDeOrdemDeServico controleOS = new ControleDeOrdemDeServico();
+    private ControleDeOrdemDeServico controleOS = new ControleDeOrdemDeServico();
+    
+    MenuDeCadastroOS menuDeCadastroOS = new MenuDeCadastroOS();
 
     public void mostrar(){
         Prompt.limparConsole();
@@ -26,7 +29,7 @@ public class MenuOrdemDeServico {
         boolean sair = false;
         switch (opcao1) {
             case 1:
-                cadastrar();
+                menuDeCadastroOS.mostrar();
                 break;
             case 2:
                 break;
@@ -49,12 +52,5 @@ public class MenuOrdemDeServico {
         if(!sair){
             mostrar();
         }
-    }
-
-
-    public void cadastrar(){
-        Prompt.separador();
-        Prompt.imprimir("CADASTRAR ORDEM DE SERVIÇO");
-        Prompt.separador();
     }
 }

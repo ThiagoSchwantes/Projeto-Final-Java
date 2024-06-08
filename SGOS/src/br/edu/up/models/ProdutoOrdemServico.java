@@ -1,31 +1,32 @@
 package br.edu.up.models;
 
 public class ProdutoOrdemServico {
-
+    private Integer produtoOrdemServicoId;
     private Produto produto;
     private Integer quantidade;
     private Double largura;
     private Double altura;
-    private Double totalM2 = (largura * altura) * quantidade;
+    private Double totalM2;
     private Double valorM2;
-    private Double valorUnitario = (largura * altura) * valorM2;
-    private Double subTtotal = valorUnitario * quantidade;
+    private Double valorUnitario;
+    private Double subTtotal;
     private Equipamento equipamento;
     private Acabamento acabamento;
 
     public ProdutoOrdemServico() {
+        
     }
 
-    public ProdutoOrdemServico(Produto produto, Integer quantidade, Double largura, Double altura, Double totalM2,
-            Double valorM2, Double valorUnitario, Double subTtotal, Equipamento equipamento, Acabamento acabamento) {
+    public ProdutoOrdemServico(Produto produto, Integer quantidade, Double largura, Double altura,
+            Double valorM2, Equipamento equipamento, Acabamento acabamento) {
         this.produto = produto;
         this.quantidade = quantidade;
         this.largura = largura;
         this.altura = altura;
-        this.totalM2 = totalM2;
+        this.totalM2 = (largura * altura);
         this.valorM2 = valorM2;
-        this.valorUnitario = valorUnitario;
-        this.subTtotal = subTtotal;
+        this.valorUnitario = (largura * altura) * valorM2;
+        this.subTtotal = valorUnitario * quantidade;
         this.equipamento = equipamento;
         this.acabamento = acabamento;
     }
@@ -91,11 +92,23 @@ public class ProdutoOrdemServico {
         this.acabamento = acabamento;
     }
 
+    public Integer getProdutoOrdemServicoId() {
+        return produtoOrdemServicoId;
+    }
+
+    public void setProdutoOrdemServicoId(Integer produtoOrdemServicoId) {
+        this.produtoOrdemServicoId = produtoOrdemServicoId;
+    }
+
     @Override
     public String toString() {
-        return "ProdutoOrdemServico [produto=" + produto + ", quantidade=" + quantidade + ", largura=" + largura
-                + ", altura=" + altura + ", totalM2=" + totalM2 + ", valorM2=" + valorM2 + ", valorUnitario="
-                + valorUnitario + ", subTtotal=" + subTtotal + ", equipamento=" + equipamento + ", acabamento="
-                + acabamento + "]";
+        return "ProdutoOrdemServico [produtoOrdemServicoId=" + produtoOrdemServicoId + ", produto=" + produto
+                + ", quantidade=" + quantidade + ", largura=" + largura + ", altura=" + altura + ", totalM2=" + totalM2
+                + ", valorM2=" + valorM2 + ", valorUnitario=" + valorUnitario + ", subTtotal=" + subTtotal
+                + ", equipamento=" + equipamento + ", acabamento=" + acabamento + "]";
+    }
+    
+    public String toCSV(){
+        return produtoOrdemServicoId + ";" + produto.getProdutoId() + ";" + quantidade + ";" + largura + ";" + altura + ";" + valorM2 + ";" + equipamento.getEquipamentoId() + ";" + acabamento.getAcabamentoId();
     }
 }

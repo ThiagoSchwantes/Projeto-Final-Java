@@ -7,7 +7,7 @@ import br.edu.up.models.Equipamento;
 import br.edu.up.util.Prompt;
 
 public class MenuEquipamento {
-    ControleDeEquipamento controleDeEquipamento = new ControleDeEquipamento();
+    private ControleDeEquipamento controleDeEquipamento = new ControleDeEquipamento();
 
     public void mostrar(){
         Prompt.limparConsole();

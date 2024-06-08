@@ -43,7 +43,7 @@ public class GerenciadorDePagamentoDAO {
             }
             leitor.close();
         } catch(Exception e){
-            System.out.println("Arquivo não encontrado!");
+            System.out.println("Arquivo não encontrado! (Pagamento)");
         }
         return listaDePagamentos;
     }

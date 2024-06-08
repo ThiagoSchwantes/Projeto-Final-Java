@@ -2,6 +2,7 @@ package br.edu.up.controllers;
 
 import java.util.Iterator;
 import java.util.List;
+
 import br.edu.up.models.Cliente;
 import br.edu.up.daos.GerenciadorDeClientesDAO;
 
@@ -29,6 +30,7 @@ public class ControleDeClientes {
     public List<Cliente> getClientes() {
         return clientes;
     }
+    
     public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
     }
@@ -36,6 +38,24 @@ public class ControleDeClientes {
     public void adicionarCliente(Cliente cliente){
         clientes.add(cliente);
         dao.gravarArquivo();
+    }
+
+     public Cliente buscar(Integer clienteId){
+        for (Cliente cliente : clientes) {
+            if(cliente.getClienteId() == clienteId){
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    public Cliente buscar(String identificacao){
+        for (Cliente cliente : clientes) {
+            if(cliente.getCpf().toLowerCase().equals(identificacao.toLowerCase())){
+                return cliente;
+            }
+        }
+        return null;
     }
 
     public void alterarCliente(String cpf, Cliente clienteAlterado){

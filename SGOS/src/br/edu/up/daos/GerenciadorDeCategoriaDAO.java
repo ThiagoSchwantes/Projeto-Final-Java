@@ -44,7 +44,7 @@ public class GerenciadorDeCategoriaDAO {
             }
             leitor.close();
         } catch(Exception e){
-            System.out.println("Arquivo não encontrado!");
+            System.out.println("Arquivo não encontrado! (Categoria)");
         }
         return listaDeCategorias;
     }

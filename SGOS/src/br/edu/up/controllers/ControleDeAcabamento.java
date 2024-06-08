@@ -32,6 +32,41 @@ public class ControleDeAcabamento {
         daoAcabamento.gravarArquivo();
     }
 
+    public Acabamento buscar(Integer acabamentoId){
+        for (Acabamento acabamento : acabamentos) {
+            if(acabamento.getAcabamentoId() == acabamentoId){
+                return acabamento;
+            }
+        }
+        return null;
+    }
+
+    public String listar(){
+        String lista = "";
+        int contador = 1;
+
+        for (Acabamento acabamento : acabamentos) {
+            if(acabamentos.indexOf(acabamento) == 0){
+                lista = contador + " - " + acabamento.toString();
+            }else{
+                lista += "\n\n" + contador + " - " +acabamento.toString();
+            }
+            
+            contador++;
+        }
+
+        return lista;
+    }
+
+    public Acabamento buscar(String nome){
+        for (Acabamento acabamento : acabamentos) {
+            if(acabamento.getNomeAcabamento().toLowerCase().equals(nome.toLowerCase())){
+                return acabamento;
+            }
+        }
+        return null;
+    }
+
     public void alterarAcabamento(Integer id, Acabamento acabamentoAlterado){
         for (Acabamento acabamento : acabamentos) {
             if(acabamento.getAcabamentoId().equals(id)){
@@ -54,7 +89,6 @@ public class ControleDeAcabamento {
         }
         daoAcabamento.gravarArquivo();
     }
-    
 
     public List<Acabamento> getAcabamentos() {
         return acabamentos;
@@ -63,6 +97,4 @@ public class ControleDeAcabamento {
     public void setAcabamentos(List<Acabamento> acabamentos) {
         this.acabamentos = acabamentos;
     }
-
-    
 }
