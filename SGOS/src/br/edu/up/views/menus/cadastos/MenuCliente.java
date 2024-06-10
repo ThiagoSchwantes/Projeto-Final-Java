@@ -4,12 +4,14 @@ import java.util.List;
 
 import br.edu.up.controllers.ControleDeClientes;
 import br.edu.up.models.Cliente;
+import br.edu.up.models.ClienteEmpresa;
+import br.edu.up.models.ClientePessoa;
 import br.edu.up.util.Prompt;
 
 public class MenuCliente {
     ControleDeClientes controleDeClientes = new ControleDeClientes();
 
-    public void mostrar(){
+    public void mostrar() {
         Prompt.limparConsole();
 
         Prompt.separador();
@@ -17,41 +19,33 @@ public class MenuCliente {
         Prompt.separador();
 
         Prompt.imprimir("Digite uma das opções:");
-        Prompt.imprimir("\t1 - Cadastrar cliente");
-        Prompt.imprimir("\t2 - Listar clientes");
-        Prompt.imprimir("\t3 - Alterar cliente");
-        Prompt.imprimir("\t4 - Deletar cliente");
-        Prompt.imprimir("\t5 - Voltar para o menu de cadastro");
+        Prompt.imprimir("\t1 - Cadastrar cliente Pessoa");
+        Prompt.imprimir("\t2 - Cadastrar cliente Empresa");
+        Prompt.imprimir("\t3 - Listar clientes");
+        Prompt.imprimir("\t4 - Alterar cliente");
+        Prompt.imprimir("\t5 - Deletar cliente");
+        Prompt.imprimir("\t6 - Voltar para o menu de cadastro");
 
-        int opcao1 = Prompt.lerInteiro("Digite aqui: ");
+        int opcao = Prompt.lerInteiro("Digite aqui: ");
         boolean sair = false;
 
-        switch (opcao1) {
+        switch (opcao) {
             case 1:
-                cadastrarCliente();
+                cadastrarClientePessoa();
                 break;
             case 2:
-                List<Cliente> clientes = controleDeClientes.getClientes();
-                if(clientes.isEmpty()){
-                    Prompt.imprimir("Não há clientes cadastrados.");
-                }else{
-                    for (Cliente cliente : clientes) {
-                        Prompt.imprimir(cliente.toStringBasico());
-                    }
-                }
+                cadastrarClienteEmpresa();
                 break;
             case 3:
-                String cpfAlterar = getCpf();
-                Cliente clienteAlterado = alterarCliente();
-
-                controleDeClientes.alterarCliente(cpfAlterar, clienteAlterado);
+                listarClientes();
                 break;
             case 4:
-                String cpfDeletar = getCpf();
-
-                controleDeClientes.deletarCliente(cpfDeletar);
+                alterarCliente();
                 break;
             case 5:
+                deletarCliente();
+                break;
+            case 6:
                 sair = true;
                 break;
             default:
@@ -59,15 +53,14 @@ public class MenuCliente {
                 Prompt.imprimir("Valor Inválido.");
                 break;
         }
-        if(!sair){
+        if (!sair) {
             Prompt.separador();
             Prompt.pressionarEnter();
             mostrar();
         }
     }
 
-    public Cliente cadastrarCliente() {
-        Integer clienteId = controleDeClientes.getProximoId();
+    private void cadastrarClientePessoa() {
         String nomeCliente = lerNomeCliente();
         String rg = lerRg();
         String cpf = lerCpf();
@@ -76,37 +69,83 @@ public class MenuCliente {
         String bairro = lerBairro();
         String cidade = lerCidade();
 
-        Cliente cliente = new Cliente(clienteId, nomeCliente, rg, cpf, cep, endereco, bairro, cidade);
+        ClientePessoa cliente = new ClientePessoa(null, nomeCliente, cep, endereco, bairro, cidade, rg, cpf);
         controleDeClientes.adicionarCliente(cliente);
-        return cliente;
     }
 
-    public String getCpf() {
-        return lerCpf();
-    }
-
-    public Cliente alterarCliente() {
+    private void cadastrarClienteEmpresa() {
         String nomeCliente = lerNomeCliente();
-        String rg = lerRg();
-        String cpf = lerCpf();
+        String cnpj = lerCnpj();
+        String inscricaoEstadual = lerInscricaoEstadual();
+        int anoFundacao = lerAnoFundacao();
         String cep = lerCep();
         String endereco = lerEndereco();
         String bairro = lerBairro();
         String cidade = lerCidade();
 
-        Cliente clienteAlterado = new Cliente(nomeCliente, rg, cpf, cep, endereco, bairro, cidade);
-        return clienteAlterado;
+        ClienteEmpresa cliente = new ClienteEmpresa(null, nomeCliente, cep, endereco, bairro, cidade, cnpj, inscricaoEstadual, anoFundacao);
+        controleDeClientes.adicionarCliente(cliente);
+    }
+
+    private void listarClientes() {
+        List<Cliente> clientes = controleDeClientes.getClientes();
+        if (clientes.isEmpty()) {
+            Prompt.imprimir("Não há clientes cadastrados.");
+        } else {
+            for (Cliente cliente : clientes) {
+                Prompt.imprimir(cliente.toStringBasico());
+            }
+        }
+    }
+
+    private void alterarCliente() {
+        int clienteId = lerClienteId();
+        Cliente clienteExistente = controleDeClientes.getClientes().stream()
+            .filter(cliente -> cliente.getClienteId().equals(clienteId))
+            .findFirst()
+            .orElse(null);
+
+        if (clienteExistente == null) {
+            Prompt.imprimir("Cliente não encontrado.");
+            return;
+        }
+
+        String nomeCliente = lerNomeCliente();
+        String cep = lerCep();
+        String endereco = lerEndereco();
+        String bairro = lerBairro();
+        String cidade = lerCidade();
+
+        if (clienteExistente instanceof ClientePessoa) {
+            String rg = lerRg();
+            String cpf = lerCpf();
+            ClientePessoa clienteAlterado = new ClientePessoa(clienteId, nomeCliente, cep, endereco, bairro, cidade, rg, cpf);
+            controleDeClientes.alterarCliente(clienteId, clienteAlterado);
+        } else if (clienteExistente instanceof ClienteEmpresa) {
+            String cnpj = lerCnpj();
+            String inscricaoEstadual = lerInscricaoEstadual();
+            int anoFundacao = lerAnoFundacao();
+            ClienteEmpresa clienteAlterado = new ClienteEmpresa(clienteId, nomeCliente, cep, endereco, bairro, cidade, cnpj, inscricaoEstadual, anoFundacao);
+            controleDeClientes.alterarCliente(clienteId, clienteAlterado);
+        }
+    }
+
+    private void deletarCliente() {
+        int clienteId = lerClienteId();
+        controleDeClientes.deletarCliente(clienteId);
+    }
+
+    private int lerClienteId() {
+        return Prompt.lerInteiro("Informe o ID do cliente: ");
     }
 
     private String lerNomeCliente() {
         while (true) {
             String nomeCliente = Prompt.lerLinha("Informe o nome do cliente: ");
-            try {
-                Cliente cliente = new Cliente();
-                cliente.setNomeCliente(nomeCliente);
+            if (nomeCliente == null || nomeCliente.trim().isEmpty()) {
+                Prompt.imprimir("Nome do cliente não pode ser nulo ou vazio.");
+            } else {
                 return nomeCliente;
-            } catch (IllegalArgumentException e) {
-                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -114,12 +153,10 @@ public class MenuCliente {
     private String lerRg() {
         while (true) {
             String rg = Prompt.lerLinha("Informe o RG do cliente: ");
-            try {
-                Cliente cliente = new Cliente();
-                cliente.setRg(rg);
+            if (rg == null || rg.trim().isEmpty()) {
+                Prompt.imprimir("RG não pode ser nulo ou vazio.");
+            } else {
                 return rg;
-            } catch (IllegalArgumentException e) {
-                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -127,25 +164,40 @@ public class MenuCliente {
     private String lerCpf() {
         while (true) {
             String cpf = Prompt.lerLinha("Informe o CPF do cliente (formato: 123.456.789-00): ");
-            try {
-                Cliente cliente = new Cliente();
-                cliente.setCpf(cpf);
+            if (cpf == null || cpf.trim().isEmpty()) {
+                Prompt.imprimir("CPF não pode ser nulo ou vazio.");
+            } else {
                 return cpf;
-            } catch (IllegalArgumentException e) {
-                Prompt.imprimir(e.getMessage());
             }
         }
+    }
+
+    private String lerCnpj() {
+        while (true) {
+            String cnpj = Prompt.lerLinha("Informe o CNPJ do cliente (formato: 00.000.000/0000-00): ");
+            if (cnpj == null || cnpj.trim().isEmpty()) {
+                Prompt.imprimir("CNPJ não pode ser nulo ou vazio.");
+            } else {
+                return cnpj;
+            }
+        }
+    }
+
+    private String lerInscricaoEstadual() {
+        return Prompt.lerLinha("Informe a inscrição estadual do cliente: ");
+    }
+
+    private int lerAnoFundacao() {
+        return Prompt.lerInteiro("Informe o ano de fundação do cliente: ");
     }
 
     private String lerCep() {
         while (true) {
             String cep = Prompt.lerLinha("Informe o CEP do cliente: ");
-            try {
-                Cliente cliente = new Cliente();
-                cliente.setCep(cep);
+            if (cep == null || cep.trim().isEmpty()) {
+                Prompt.imprimir("CEP não pode ser nulo ou vazio.");
+            } else {
                 return cep;
-            } catch (IllegalArgumentException e) {
-                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -153,12 +205,10 @@ public class MenuCliente {
     private String lerEndereco() {
         while (true) {
             String endereco = Prompt.lerLinha("Informe o endereço do cliente: ");
-            try {
-                Cliente cliente = new Cliente();
-                cliente.setEndereco(endereco);
+            if (endereco == null || endereco.trim().isEmpty()) {
+                Prompt.imprimir("Endereço não pode ser nulo ou vazio.");
+            } else {
                 return endereco;
-            } catch (IllegalArgumentException e) {
-                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -166,12 +216,10 @@ public class MenuCliente {
     private String lerBairro() {
         while (true) {
             String bairro = Prompt.lerLinha("Informe o bairro do cliente: ");
-            try {
-                Cliente cliente = new Cliente();
-                cliente.setBairro(bairro);
+            if (bairro == null || bairro.trim().isEmpty()) {
+                Prompt.imprimir("Bairro não pode ser nulo ou vazio.");
+            } else {
                 return bairro;
-            } catch (IllegalArgumentException e) {
-                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -179,12 +227,10 @@ public class MenuCliente {
     private String lerCidade() {
         while (true) {
             String cidade = Prompt.lerLinha("Informe a cidade do cliente: ");
-            try {
-                Cliente cliente = new Cliente();
-                cliente.setCidade(cidade);
+            if (cidade == null || cidade.trim().isEmpty()) {
+                Prompt.imprimir("Cidade não pode ser nula ou vazia.");
+            } else {
                 return cidade;
-            } catch (IllegalArgumentException e) {
-                Prompt.imprimir(e.getMessage());
             }
         }
     }
