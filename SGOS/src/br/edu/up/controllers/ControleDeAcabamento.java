@@ -47,9 +47,9 @@ public class ControleDeAcabamento {
 
         for (Acabamento acabamento : acabamentos) {
             if(acabamentos.indexOf(acabamento) == 0){
-                lista = contador + " - " + acabamento.toString();
+                lista = contador + " - " + acabamento.getNomeAcabamento();
             }else{
-                lista += "\n\n" + contador + " - " +acabamento.toString();
+                lista += "\n" + contador + " - " +acabamento.getNomeAcabamento();
             }
             
             contador++;

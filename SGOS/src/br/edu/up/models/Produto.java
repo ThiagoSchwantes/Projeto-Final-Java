@@ -59,7 +59,7 @@ public class Produto {
     }
 
     public String toStringBasico(){
-        return "Produto [Id=" +  produtoId + ", nome=" + nomeProduto + ", categoria= "+ categoria.getNomeCategoria() + "]";
+        return "Produto [Id=" +  produtoId + ", nome=" + nomeProduto + "]";
     }
     
     @Override

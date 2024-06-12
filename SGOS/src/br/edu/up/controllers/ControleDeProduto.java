@@ -37,9 +37,9 @@ public class ControleDeProduto {
         int contador = 1;
         for (Produto produto : produtos) {
             if(produtos.indexOf(produto) == 0){
-                lista = contador + " - " + produto.toString();
+                lista = contador + " - " + produto.getNomeProduto();
             }else{
-                lista += "\n\n" + contador + " - " +produto.toString();
+                lista += "\n" + contador + " - " +produto.getNomeProduto();
             }
             
             contador++;

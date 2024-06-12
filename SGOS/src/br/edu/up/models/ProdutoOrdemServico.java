@@ -9,7 +9,7 @@ public class ProdutoOrdemServico {
     private Double totalM2;
     private Double valorM2;
     private Double valorUnitario;
-    private Double subTtotal;
+    private Double subTotal;
     private Equipamento equipamento;
     private Acabamento acabamento;
 
@@ -23,10 +23,10 @@ public class ProdutoOrdemServico {
         this.quantidade = quantidade;
         this.largura = largura;
         this.altura = altura;
-        this.totalM2 = (largura * altura);
+        this.totalM2 = (largura * altura)*quantidade;
         this.valorM2 = valorM2;
         this.valorUnitario = (largura * altura) * valorM2;
-        this.subTtotal = valorUnitario * quantidade;
+        this.subTotal = valorUnitario * quantidade;
         this.equipamento = equipamento;
         this.acabamento = acabamento;
     }
@@ -74,10 +74,10 @@ public class ProdutoOrdemServico {
         this.valorUnitario = valorUnitario;
     }
     public Double getSubTtotal() {
-        return subTtotal;
+        return subTotal;
     }
-    public void setSubTtotal(Double subTtotal) {
-        this.subTtotal = subTtotal;
+    public void setSubTtotal(Double subTotal) {
+        this.subTotal = subTotal;
     }
     public Equipamento getEquipamento() {
         return equipamento;
@@ -104,8 +104,21 @@ public class ProdutoOrdemServico {
     public String toString() {
         return "ProdutoOrdemServico [produtoOrdemServicoId=" + produtoOrdemServicoId + ", produto=" + produto
                 + ", quantidade=" + quantidade + ", largura=" + largura + ", altura=" + altura + ", totalM2=" + totalM2
-                + ", valorM2=" + valorM2 + ", valorUnitario=" + valorUnitario + ", subTtotal=" + subTtotal
+                + ", valorM2=" + valorM2 + ", valorUnitario=" + valorUnitario + ", subTtotal=" + subTotal
                 + ", equipamento=" + equipamento + ", acabamento=" + acabamento + "]";
+    }
+
+    public String toStringBasico(){
+        return  "Produto: " + produto.getNomeProduto() + "\n"+
+                "Quantidade: " + quantidade + "\n" +
+                "largura: " + largura + "\n" +
+                "altura: " + altura + "\n" +
+                "valor do metro quadrado: " + valorM2 + "\n" +
+                "total do metro quadrado: " + totalM2 + "\n" +
+                "valor unitário: " + valorUnitario + "\n" +
+                "subTotal: " + subTotal + "\n" + 
+                "equipamento: " + equipamento.getNomeEquipamento() + "\n" +
+                "acabamento: " + acabamento.getNomeAcabamento(); 
     }
     
     public String toCSV(){

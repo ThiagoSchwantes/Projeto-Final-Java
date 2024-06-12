@@ -1,2 +1,3 @@
-codigo;dataEHoraAbertura;clienteId;funcionario;comentario;produtoOrdemServicoId
-0;2024-06-08T20:19:06.502852300;1;Thiago;para ontem;0
+codigo;dataEHoraAbertura;clienteId;funcionarioId;comentario;produtoOrdemServicoId
+0;2024-06-12T19:00:29.713865400;5;1;comentario;0
+1;2024-06-12T19:00:51.477202700;5;1;1;1

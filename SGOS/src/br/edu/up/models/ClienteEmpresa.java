@@ -4,6 +4,10 @@ public class ClienteEmpresa extends Cliente{
     private String cnpj;
     private String inscricaoEstadual;
     private int anoFundacao;
+
+    public ClienteEmpresa(){
+        
+    }
     
     public ClienteEmpresa(Integer clienteId, String nomeCliente, String cep, String endereco, String bairro,
             String cidade) {
