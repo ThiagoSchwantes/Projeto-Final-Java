@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 import br.edu.up.models.Cliente;
+import br.edu.up.models.ClienteEmpresa;
+import br.edu.up.models.ClientePessoa;
 import br.edu.up.util.EnvLoader;
 
 public class GerenciadorDeClientesDAO {
@@ -32,18 +34,25 @@ public class GerenciadorDeClientesDAO {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 String[] dados = linha.split(";");
-
                 Integer clienteId = Integer.parseInt(dados[0]);
                 String nomeCliente = dados[1];
-                String rg = dados[2];
-                String cpf = dados[3];
-                String cep = dados[4];
-                String endereco = dados[5];
-                String bairro = dados[6];
-                String cidade = dados[7];
+                String cep = dados[2];
+                String endereco = dados[3];
+                String bairro = dados[4];
+                String cidade = dados[5];
 
-                Cliente cliente = new Cliente(clienteId, nomeCliente, rg, cpf, cep, endereco, bairro, cidade);
-                listaDeClientes.add(cliente);
+                if (dados[6].equals("")) { 
+                    String rg = dados[9];
+                    String cpf = dados[10];
+                    ClientePessoa clientePessoa = new ClientePessoa(clienteId, nomeCliente, cep, endereco, bairro, cidade, rg, cpf);
+                    listaDeClientes.add(clientePessoa);
+                } else{ 
+                    String cnpj = dados[6];
+                    String inscricaoEstadual = dados[7];
+                    int anoFundacao = Integer.parseInt(dados[8]);
+                    ClienteEmpresa clienteEmpresa = new ClienteEmpresa(clienteId, nomeCliente, cep, endereco, bairro, cidade, cnpj, inscricaoEstadual, anoFundacao);
+                    listaDeClientes.add(clienteEmpresa);
+                }
             }
             leitor.close();
         } catch(Exception e){
@@ -59,7 +68,13 @@ public class GerenciadorDeClientesDAO {
             gravador.println(header);
 
             for (Cliente cliente : listaDeClientes) {
-                gravador.println(cliente.toCSV());
+                if(cliente instanceof ClienteEmpresa){
+                    ClienteEmpresa clienteEmpresa = (ClienteEmpresa) cliente;
+                    gravador.println(clienteEmpresa.toCSV());
+                }else if(cliente instanceof ClientePessoa){
+                    ClientePessoa clientePessoa = (ClientePessoa) cliente;
+                    gravador.println(clientePessoa.toCSV());
+                }
             }
             gravador.close();
         } catch (IOException e) {

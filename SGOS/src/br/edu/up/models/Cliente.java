@@ -1,11 +1,9 @@
 package br.edu.up.models;
 
-public class Cliente {
+public abstract class Cliente {
 
     private Integer clienteId;
     private String nomeCliente;
-    private String rg;
-    private String cpf;
     private String cep;
     private String endereco;
     private String bairro;
@@ -14,23 +12,19 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Integer clienteId, String nomeCliente, String rg, String cpf, String cep, String endereco,
+    public Cliente(Integer clienteId, String nomeCliente, String cep, String endereco,
                    String bairro, String cidade) {
         setClienteId(clienteId);
         setNomeCliente(nomeCliente);
-        setRg(rg);
-        setCpf(cpf);
         setCep(cep);
         setEndereco(endereco);
         setBairro(bairro);
         setCidade(cidade);
     }
 
-    public Cliente(String nomeCliente, String rg, String cpf, String cep, String endereco, String bairro,
+    public Cliente(String nomeCliente, String cep, String endereco, String bairro,
                    String cidade) {
         setNomeCliente(nomeCliente);
-        setRg(rg);
-        setCpf(cpf);
         setCep(cep);
         setEndereco(endereco);
         setBairro(bairro);
@@ -54,28 +48,6 @@ public class Cliente {
             throw new IllegalArgumentException("Nome do cliente não pode ser nulo ou vazio");
         }
         this.nomeCliente = nomeCliente;
-    }
-
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        if (rg == null || rg.trim().isEmpty()) {
-            throw new IllegalArgumentException("RG não pode ser nulo ou vazio");
-        }
-        this.rg = rg;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        if (cpf == null || cpf.trim().isEmpty() || !isValidCPF(cpf)) {
-            throw new IllegalArgumentException("CPF inválido. O formato deve ser 123.456.789-00.");
-        }
-        this.cpf = cpf;
     }
 
     public String getCep() {
@@ -128,49 +100,13 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente [Id=" + clienteId + ", nome=" + nomeCliente + ", rg=" + rg + ", cpf=" + cpf + ", cep=" + cep
+        return "Cliente [Id=" + clienteId + ", nome=" + nomeCliente + ", cep=" + cep
                 + ", endereco=" + endereco + ", bairro=" + bairro + ", cidade=" + cidade + "]";
     }
 
     public String toCSV() {
-        return clienteId + ";" + nomeCliente + ";" + rg + ";" + cpf + ";" + cep + ";" + endereco + ";" + bairro + ";" + cidade;
+        return clienteId + ";" + nomeCliente + ";" + cep + ";" + endereco + ";" + bairro + ";" + cidade;
     }
-
-    private boolean isValidCPF(String cpf) {
-        if (cpf == null || cpf.length() != 14 || !cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
-            return false;
-        }
-    
-        // Remove pontos e hífen
-        cpf = cpf.replace(".", "").replace("-", "");
-    
-        if (cpf.chars().distinct().count() == 1) {
-            return false;
-        }
-    
-        int sum = 0;
-        for (int i = 0; i < 9; i++) {
-            sum += (cpf.charAt(i) - '0') * (10 - i);
-        }
-    
-        int checkDigit1 = 11 - (sum % 11);
-        if (checkDigit1 >= 10) {
-            checkDigit1 = 0;
-        }
-    
-        sum = 0;
-        for (int i = 0; i < 10; i++) {
-            sum += (cpf.charAt(i) - '0') * (11 - i);
-        }
-    
-        int checkDigit2 = 11 - (sum % 11);
-        if (checkDigit2 >= 10) {
-            checkDigit2 = 0;
-        }
-    
-        return checkDigit1 == (cpf.charAt(9) - '0') && checkDigit2 == (cpf.charAt(10) - '0');
-    }
-    
 
     private boolean isValidCEP(String cep) {
         return cep != null && cep.matches("\\d{5}-\\d{3}");

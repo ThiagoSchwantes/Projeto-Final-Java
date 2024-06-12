@@ -97,5 +97,24 @@ public class ControleDeEquipamento {
     public void setEquipamentos(List<Equipamento> equipamentos) {
         this.equipamentos = equipamentos;
     }
+
+    public GerenciadorDeEquipamentoDAO getDaoEquipamento() {
+        return daoEquipamento;
+    }
+
+    public void setDaoEquipamento(GerenciadorDeEquipamentoDAO daoEquipamento) {
+        this.daoEquipamento = daoEquipamento;
+    }
+
+    public int getMaiorId() {
+        return maiorId;
+    }
+
+    public void setMaiorId(int maiorId) {
+        this.maiorId = maiorId;
+    }
+
+
+    
     
 }

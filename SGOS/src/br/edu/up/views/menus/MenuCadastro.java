@@ -7,6 +7,7 @@ import br.edu.up.views.menus.cadastos.MenuCliente;
 import br.edu.up.views.menus.cadastos.MenuEquipamento;
 import br.edu.up.views.menus.cadastos.MenuPagamento;
 import br.edu.up.views.menus.cadastos.MenuProduto;
+import br.edu.up.views.menus.cadastos.MenuFuncionario;
 
 public class MenuCadastro {
     private MenuCliente menuCliente = new MenuCliente();
@@ -15,6 +16,7 @@ public class MenuCadastro {
     private MenuEquipamento menuEquipamento = new MenuEquipamento();
     private MenuCategoria menuCategoria = new MenuCategoria();
     private MenuPagamento menuPagamento = new MenuPagamento();
+    private MenuFuncionario menuFuncionario = new MenuFuncionario();
 
     public void mostrar(){
         Prompt.limparConsole();
@@ -26,11 +28,12 @@ public class MenuCadastro {
         Prompt.imprimir("Digite uma das opções:");
         Prompt.imprimir("\t1 - Cliente");
         Prompt.imprimir("\t2 - Produto");
-        Prompt.imprimir("\t3 - Acabamento");
-        Prompt.imprimir("\t4 - Equipamento");
-        Prompt.imprimir("\t5 - Categorias");
-        Prompt.imprimir("\t6 - Formas de pagamento");
-        Prompt.imprimir("\t7 - Voltar para o menu principal");
+        Prompt.imprimir("\t3 - Funcionário");
+        Prompt.imprimir("\t4 - Acabamento");
+        Prompt.imprimir("\t5 - Equipamento");
+        Prompt.imprimir("\t6 - Categorias");
+        Prompt.imprimir("\t7 - Formas de pagamento");
+        Prompt.imprimir("\t8 - Voltar para o menu principal");
 
 
         int opcao1 = Prompt.lerInteiro("Digite aqui: ");
@@ -45,18 +48,21 @@ public class MenuCadastro {
                 menuProduto.mostrar();
                 break;
             case 3:
-                menuAcabamento.mostrar();
+                menuFuncionario.mostrar();
                 break;
             case 4:
-                menuEquipamento.mostrar();
+                menuAcabamento.mostrar();
                 break;
             case 5:
-                menuCategoria.mostrar();
+                menuEquipamento.mostrar();
                 break;
             case 6:
-                menuPagamento.mostrar();
+                menuCategoria.mostrar();
                 break;
             case 7:
+                menuPagamento.mostrar();
+                break;
+            case 8:
                 sair = true;
                 break;
             default:
