@@ -30,14 +30,36 @@ public class ControleDeClientes {
     public List<Cliente> getClientes() {
         return clientes;
     }
+    
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }
 
     public void adicionarCliente(Cliente cliente) {
         cliente.setClienteId(getProximoId());
         clientes.add(cliente);
         dao.gravarArquivo();
     }
+      
+     public Cliente buscar(Integer clienteId){
+        for (Cliente cliente : clientes) {
+            if(cliente.getClienteId() == clienteId){
+                return cliente;
+            }
+        }
+        return null;
+    }
 
-    public void alterarCliente(int clienteId, Cliente clienteAlterado) {
+    public Cliente buscar(String identificacao){
+        for (Cliente cliente : clientes) {
+            if(cliente.getCpf().toLowerCase().equals(identificacao.toLowerCase())){
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    public void alterarCliente(String cpf, Cliente clienteAlterado){
         for (Cliente cliente : clientes) {
             if (cliente.getClienteId() == clienteId) {
                 cliente.setNomeCliente(clienteAlterado.getNomeCliente());

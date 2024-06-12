@@ -7,7 +7,7 @@ import br.edu.up.models.Acabamento;
 import br.edu.up.util.Prompt;
 
 public class MenuAcabamento {
-    ControleDeAcabamento controleDeAcabamento = new ControleDeAcabamento();
+    private ControleDeAcabamento controleDeAcabamento = new ControleDeAcabamento();
 
     public void mostrar(){
         Prompt.limparConsole();

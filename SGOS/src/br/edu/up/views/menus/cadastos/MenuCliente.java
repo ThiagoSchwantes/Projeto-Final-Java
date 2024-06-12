@@ -9,7 +9,7 @@ import br.edu.up.models.ClientePessoa;
 import br.edu.up.util.Prompt;
 
 public class MenuCliente {
-    ControleDeClientes controleDeClientes = new ControleDeClientes();
+    private ControleDeClientes controleDeClientes = new ControleDeClientes();
 
     public void mostrar() {
         Prompt.limparConsole();

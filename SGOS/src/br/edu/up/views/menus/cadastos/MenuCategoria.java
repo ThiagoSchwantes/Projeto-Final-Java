@@ -7,8 +7,7 @@ import br.edu.up.models.Categoria;
 import br.edu.up.util.Prompt;
 
 public class MenuCategoria {
-    
-    ControleDeCategoria controleDeCategoria = new ControleDeCategoria();
+    private ControleDeCategoria controleDeCategoria = new ControleDeCategoria();
 
     public void mostrar(){
         Prompt.limparConsole();

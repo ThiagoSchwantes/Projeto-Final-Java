@@ -2,9 +2,11 @@ package br.edu.up.views;
 
 import br.edu.up.util.Prompt;
 import br.edu.up.views.menus.MenuCadastro;
+import br.edu.up.views.menus.MenuOrdemDeServico;
 
 public class MenuPrincipal {
-    MenuCadastro menuCadastro = new MenuCadastro();
+    private MenuCadastro menuCadastro = new MenuCadastro();
+    private MenuOrdemDeServico menuOrdemDeServico = new MenuOrdemDeServico();
 
     public void mostrar(){
         Prompt.limparConsole();
@@ -26,7 +28,7 @@ public class MenuPrincipal {
                 menuCadastro.mostrar();   
                 break;
             case 2:
-                //menuOrdemServico();
+                menuOrdemDeServico.mostrar();
                 break;
             case 3:
                 //menuRelatorio();

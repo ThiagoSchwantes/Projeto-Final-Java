@@ -32,6 +32,41 @@ public class ControleDeProduto {
         daoProduto.gravarArquivo();
     }
 
+    public String listar(){
+        String lista = "";
+        int contador = 1;
+        for (Produto produto : produtos) {
+            if(produtos.indexOf(produto) == 0){
+                lista = contador + " - " + produto.toString();
+            }else{
+                lista += "\n\n" + contador + " - " +produto.toString();
+            }
+            
+            contador++;
+        }
+
+        return lista;
+    }
+
+    
+    public Produto buscar(Integer produtoId){
+        for (Produto produto : produtos) {
+            if(produto.getProdutoId() == produtoId){
+                return produto;
+            }
+        }
+        return null;
+    }
+
+    public Produto buscar(String nome){
+        for (Produto produto : produtos) {
+            if(produto.getNomeProduto().toLowerCase().equals(nome.toLowerCase())){
+                return produto;
+            }
+        }
+        return null;
+    }
+
     public void alterarProduto(Integer id, Produto produtoAlterado){
         for (Produto produto : produtos) {
             if(produto.getProdutoId().equals(id)){

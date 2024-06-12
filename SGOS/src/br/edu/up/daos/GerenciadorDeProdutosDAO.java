@@ -53,7 +53,7 @@ public class GerenciadorDeProdutosDAO {
             }
             leitor.close();
         } catch(Exception e){
-            System.out.println("Arquivo não encontrado!");
+            System.out.println("Arquivo não encontrado! (Produto)");
         }
         return listaDeProdutos;
     }
@@ -67,6 +67,7 @@ public class GerenciadorDeProdutosDAO {
             for (Produto produto : listaDeProdutos) {
                 gravador.println(produto.toCSV());
             }
+            
             gravador.close();
         } catch (IOException e) {
             System.out.println("Não foi possível gravar o arquivo!");

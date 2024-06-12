@@ -31,6 +31,24 @@ public class ControleDePagamento {
         daoPagamento.gravarArquivo();
     }
 
+    public Pagamento buscar(Integer pagamentoId){
+        for (Pagamento pagamento : pagamentos) {
+            if(pagamento.getPagamentoId() == pagamentoId){
+                return pagamento;
+            }
+        }
+        return null;
+    }
+
+    public Pagamento buscar(String nome){
+        for (Pagamento pagamento : pagamentos) {
+            if(pagamento.getNomePagamento().toLowerCase().equals(nome.toLowerCase())){
+                return pagamento;
+            }
+        }
+        return null;
+    }
+
     public void alterarPagamento(Integer id, Pagamento pagamentoAlterado) {
         for (Pagamento pagamento : pagamentos) {
             if (pagamento.getPagamentoId().equals(id)) {

@@ -2,6 +2,7 @@ package br.edu.up.controllers;
 
 import java.util.Iterator;
 import java.util.List;
+
 import br.edu.up.models.Equipamento;
 import br.edu.up.daos.*;
 
@@ -29,6 +30,41 @@ public class ControleDeEquipamento {
     public void adicionarEquipamento(Equipamento equipamento){
         equipamentos.add(equipamento);
         daoEquipamento.gravarArquivo();
+    }
+
+    public String listar(){
+        String lista = "";
+        int contador = 1;
+
+        for (Equipamento equipamento : equipamentos) {
+            if(equipamentos.indexOf(equipamento) == 0){
+                lista = contador + " - " + equipamento.toString();
+            }else{
+                lista += "\n\n" + contador + " - " +equipamento.toString();
+            }
+            
+            contador++;
+        }
+
+        return lista;
+    }
+
+    public Equipamento buscar(Integer equipamentoId){
+        for (Equipamento equipamento : equipamentos) {
+            if(equipamento.getEquipamentoId() == equipamentoId){
+                return equipamento;
+            }
+        }
+        return null;
+    }
+
+    public Equipamento buscar(String nome){
+        for (Equipamento equipamento : equipamentos) {
+            if(equipamento.getNomeEquipamento().toLowerCase().equals(nome.toLowerCase())){
+                return equipamento;
+            }
+        }
+        return null;
     }
 
     public void alterarEquipamento(Integer id, Equipamento equipamentoAlterado){

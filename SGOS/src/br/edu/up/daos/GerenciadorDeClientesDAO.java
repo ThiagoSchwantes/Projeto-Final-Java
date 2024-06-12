@@ -56,7 +56,7 @@ public class GerenciadorDeClientesDAO {
             }
             leitor.close();
         } catch(Exception e){
-            System.out.println("Arquivo não encontrado!");
+            System.out.println("Arquivo não encontrado! (Cliente)");
         }
         return listaDeClientes;
     }
@@ -78,7 +78,7 @@ public class GerenciadorDeClientesDAO {
             }
             gravador.close();
         } catch (IOException e) {
-            System.out.println("Não foi possível gravar o arquivo!");
+            System.out.println("Não foi possível gravar o arquivo!" + e);
         }
     }
 }

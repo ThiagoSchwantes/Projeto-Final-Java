@@ -7,7 +7,7 @@ import br.edu.up.models.Pagamento;
 import br.edu.up.util.Prompt;
 
 public class MenuPagamento {
-    ControleDePagamento controleDePagamento = new ControleDePagamento();
+    private ControleDePagamento controleDePagamento = new ControleDePagamento();
 
     public void mostrar(){
         Prompt.limparConsole();
