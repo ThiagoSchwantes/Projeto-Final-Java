@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import br.edu.up.models.Cliente;
 import br.edu.up.models.Funcionario;
 import br.edu.up.util.EnvLoader;
 

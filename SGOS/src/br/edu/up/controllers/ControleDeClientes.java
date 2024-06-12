@@ -1,7 +1,5 @@
 package br.edu.up.controllers;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import br.edu.up.models.Cliente;
@@ -15,13 +13,13 @@ public class ControleDeClientes {
 
     public ControleDeClientes() {
         dao = new GerenciadorDeClientesDAO();
-        try {
-            clientes = dao.getClientes();
-            maiorId = clientes.stream().mapToInt(Cliente::getClienteId).max().orElse(0);
-        } catch (Exception e) {
-            System.err.println("Erro ao carregar clientes: " + e.getMessage());
-            clientes = new ArrayList<>(); 
-            maiorId = 0;
+        this.clientes = dao.getClientes();
+        this.maiorId = 0;
+
+        for (Cliente cliente : clientes) {
+            if (cliente.getClienteId() > maiorId) {
+                maiorId = cliente.getClienteId();
+            }
         }
     }
 

@@ -44,14 +44,24 @@ public class MenuFuncionario {
                 break;
             case 3:
                 String cpfAlterar = getCpf();
-                Funcionario funcionarioAlterado = alterarFuncionario();
 
-                controleDeFuncionarios.alterarFuncionario(cpfAlterar, funcionarioAlterado);
+                if(controleDeFuncionarios.buscar(cpfAlterar) == null){
+                    Prompt.imprimir("cpf digitado inexistente ou invalido!");
+                }else{
+                    Funcionario funcionarioAlterado = alterarFuncionario();
+
+                    controleDeFuncionarios.alterarFuncionario(cpfAlterar, funcionarioAlterado);
+                }
                 break;
             case 4:
                 String cpfDeletar = getCpf();
 
-                controleDeFuncionarios.deletarFuncionario(cpfDeletar);
+                if(controleDeFuncionarios.buscar(cpfDeletar) == null){
+                    Prompt.imprimir("cpf digitado inexistente ou invalido!");
+                }else{
+                    controleDeFuncionarios.deletarFuncionario(cpfDeletar);
+                }
+
                 break;
             case 5:
                 sair = true;

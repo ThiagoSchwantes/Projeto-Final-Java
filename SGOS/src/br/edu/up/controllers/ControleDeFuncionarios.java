@@ -3,7 +3,6 @@ package br.edu.up.controllers;
 import java.util.Iterator;
 import java.util.List;
 
-import br.edu.up.models.Cliente;
 import br.edu.up.models.Funcionario;
 import br.edu.up.daos.GerenciadorDeFuncionariosDAO;
 
@@ -41,6 +40,15 @@ public class ControleDeFuncionarios {
      public void adicionarFuncionario(Funcionario funcionario) {
         funcionarios.add(funcionario);
         daoFuncionario.gravarArquivo();
+    }
+
+    public Funcionario buscar(String cpf){
+        for (Funcionario funcionario : funcionarios) {
+            if(funcionario.getCpf().toLowerCase().equals(cpf.toLowerCase())){
+                return funcionario;
+            }
+        }
+        return null;
     }
 
     public void deletarFuncionario(String cpf) {

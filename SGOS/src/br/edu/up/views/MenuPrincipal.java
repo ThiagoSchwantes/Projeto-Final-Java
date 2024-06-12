@@ -8,7 +8,6 @@ public class MenuPrincipal {
 
     public void mostrar(){
         Prompt.limparConsole();
-        
         Prompt.separador();
         Prompt.imprimir("MENU PRINCIPAL");
         Prompt.separador();

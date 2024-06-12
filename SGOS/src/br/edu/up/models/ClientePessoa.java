@@ -82,6 +82,6 @@ public class ClientePessoa extends Cliente {
     @Override
     public String toCSV() {
         return getClienteId() + ";" + getNomeCliente() + ";" + getCep() + ";" + getEndereco() + ";" + getBairro() 
-        + ";" + getCidade() + ";;;" +  rg + ";" + cpf;
+        + ";" + getCidade() + ";;;;" +  rg + ";" + cpf;
     }
 }

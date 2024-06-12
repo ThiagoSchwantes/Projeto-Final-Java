@@ -34,7 +34,6 @@ public class GerenciadorDeClientesDAO {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 String[] dados = linha.split(";");
-
                 Integer clienteId = Integer.parseInt(dados[0]);
                 String nomeCliente = dados[1];
                 String cep = dados[2];
@@ -42,12 +41,12 @@ public class GerenciadorDeClientesDAO {
                 String bairro = dados[4];
                 String cidade = dados[5];
 
-                if (dados.length == 8) { 
-                    String rg = dados[6];
-                    String cpf = dados[7];
+                if (dados[6].equals("")) { 
+                    String rg = dados[9];
+                    String cpf = dados[10];
                     ClientePessoa clientePessoa = new ClientePessoa(clienteId, nomeCliente, cep, endereco, bairro, cidade, rg, cpf);
                     listaDeClientes.add(clientePessoa);
-                } else if (dados.length == 11) { 
+                } else{ 
                     String cnpj = dados[6];
                     String inscricaoEstadual = dados[7];
                     int anoFundacao = Integer.parseInt(dados[8]);
@@ -69,7 +68,13 @@ public class GerenciadorDeClientesDAO {
             gravador.println(header);
 
             for (Cliente cliente : listaDeClientes) {
-                gravador.println(cliente.toCSV());
+                if(cliente instanceof ClienteEmpresa){
+                    ClienteEmpresa clienteEmpresa = (ClienteEmpresa) cliente;
+                    gravador.println(clienteEmpresa.toCSV());
+                }else if(cliente instanceof ClientePessoa){
+                    ClientePessoa clientePessoa = (ClientePessoa) cliente;
+                    gravador.println(clientePessoa.toCSV());
+                }
             }
             gravador.close();
         } catch (IOException e) {

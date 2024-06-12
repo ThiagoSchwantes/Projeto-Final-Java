@@ -99,44 +99,94 @@ public class MenuCliente {
     }
 
     private void alterarCliente() {
-        int clienteId = lerClienteId();
-        Cliente clienteExistente = controleDeClientes.getClientes().stream()
-            .filter(cliente -> cliente.getClienteId().equals(clienteId))
-            .findFirst()
-            .orElse(null);
+        String identificacao = Prompt.lerLinha("Informe o cpf ou cnpj do cliente: ");
+        if(identificacao.length() == 14){
+            ClientePessoa clienteExistente = null;
 
-        if (clienteExistente == null) {
-            Prompt.imprimir("Cliente não encontrado.");
-            return;
-        }
+            for (Cliente cliente : controleDeClientes.getClientes()) {
+                if(cliente instanceof ClientePessoa){
+                    if (((ClientePessoa)cliente).getCpf().equals(identificacao)) {
+                        clienteExistente = (ClientePessoa) cliente;
+                    }
+                }
+            }
 
-        String nomeCliente = lerNomeCliente();
-        String cep = lerCep();
-        String endereco = lerEndereco();
-        String bairro = lerBairro();
-        String cidade = lerCidade();
+            if (clienteExistente == null) {
+                Prompt.imprimir("Cliente não encontrado.");
+                return;
+            }else{
+                Integer clienteId = clienteExistente.getClienteId();
+                String nomeCliente = lerNomeCliente();
+                String cep = lerCep();
+                String endereco = lerEndereco();
+                String bairro = lerBairro();
+                String cidade = lerCidade();
+                String rg = lerRg();
+                String cpf = lerCpf();
 
-        if (clienteExistente instanceof ClientePessoa) {
-            String rg = lerRg();
-            String cpf = lerCpf();
-            ClientePessoa clienteAlterado = new ClientePessoa(clienteId, nomeCliente, cep, endereco, bairro, cidade, rg, cpf);
-            controleDeClientes.alterarCliente(clienteId, clienteAlterado);
-        } else if (clienteExistente instanceof ClienteEmpresa) {
-            String cnpj = lerCnpj();
-            String inscricaoEstadual = lerInscricaoEstadual();
-            int anoFundacao = lerAnoFundacao();
-            ClienteEmpresa clienteAlterado = new ClienteEmpresa(clienteId, nomeCliente, cep, endereco, bairro, cidade, cnpj, inscricaoEstadual, anoFundacao);
-            controleDeClientes.alterarCliente(clienteId, clienteAlterado);
-        }
+                ClientePessoa clienteAlterado = new ClientePessoa(clienteId, nomeCliente, cep, endereco, bairro, cidade, rg, cpf);
+                controleDeClientes.alterarCliente(clienteId, clienteAlterado);
+            }
+
+        }else if(identificacao.length() == 18){
+            ClienteEmpresa clienteExistente = null;
+
+            for (Cliente cliente : controleDeClientes.getClientes()) {
+                if(cliente instanceof ClienteEmpresa && ((ClienteEmpresa)cliente).getCnpj().equals(identificacao)){
+                    clienteExistente = (ClienteEmpresa) cliente;
+                }
+            }
+
+            if (clienteExistente == null) {
+                Prompt.imprimir("Cliente não encontrado.");
+                return;
+            }else{
+                Integer clienteId = clienteExistente.getClienteId();
+                String nomeCliente = lerNomeCliente();
+                String cep = lerCep();
+                String endereco = lerEndereco();
+                String bairro = lerBairro();
+                String cidade = lerCidade();
+                String cnpj = lerCnpj();
+                String inscricaoEstadual = lerInscricaoEstadual();
+                int anoFundacao = lerAnoFundacao();
+                
+                ClienteEmpresa clienteAlterado = new ClienteEmpresa(clienteId, nomeCliente, cep, endereco, bairro, cidade, cnpj, inscricaoEstadual, anoFundacao);
+                controleDeClientes.alterarCliente(clienteId, clienteAlterado);
+            }
+        }else{
+            Prompt.imprimir("Cnpj ou cpf digitado inexistente!");
+        }       
     }
 
     private void deletarCliente() {
-        int clienteId = lerClienteId();
-        controleDeClientes.deletarCliente(clienteId);
-    }
+        String identificacao = Prompt.lerLinha("Informe o cpf ou cnpj do cliente que deseja excluir: ");
 
-    private int lerClienteId() {
-        return Prompt.lerInteiro("Informe o ID do cliente: ");
+        if(identificacao.length() == 14){
+            ClientePessoa clienteExistente = null;
+
+            for (Cliente cliente : controleDeClientes.getClientes()) {
+                if(cliente instanceof ClientePessoa){
+                    if (((ClientePessoa)cliente).getCpf().equals(identificacao)) {
+                        clienteExistente = (ClientePessoa) cliente;
+                    }
+                }
+            }
+
+            controleDeClientes.deletarCliente(clienteExistente.getClienteId());
+        }else if(identificacao.length() == 18){
+            ClienteEmpresa clienteExistente = null;
+
+            for (Cliente cliente : controleDeClientes.getClientes()) {
+                if(cliente instanceof ClienteEmpresa && ((ClienteEmpresa)cliente).getCnpj().equals(identificacao)){
+                    clienteExistente = (ClienteEmpresa) cliente;
+                }
+            }
+
+            controleDeClientes.deletarCliente(clienteExistente.getClienteId());
+        }else{
+            Prompt.imprimir("Cnpj ou cpf digitado inexistente!");
+        }            
     }
 
     private String lerNomeCliente() {
