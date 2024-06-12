@@ -125,7 +125,7 @@ public class MenuCliente {
                 String cpf = lerCpf();
 
                 ClientePessoa clienteAlterado = new ClientePessoa(clienteId, nomeCliente, cep, endereco, bairro, cidade, rg, cpf);
-                controleDeClientes.alterarCliente(clienteId, clienteAlterado);
+                controleDeClientes.alterarCliente(identificacao, clienteAlterado);
             }
 
         }else if(identificacao.length() == 18){
@@ -152,7 +152,7 @@ public class MenuCliente {
                 int anoFundacao = lerAnoFundacao();
                 
                 ClienteEmpresa clienteAlterado = new ClienteEmpresa(clienteId, nomeCliente, cep, endereco, bairro, cidade, cnpj, inscricaoEstadual, anoFundacao);
-                controleDeClientes.alterarCliente(clienteId, clienteAlterado);
+                controleDeClientes.alterarCliente(identificacao, clienteAlterado);
             }
         }else{
             Prompt.imprimir("Cnpj ou cpf digitado inexistente!");

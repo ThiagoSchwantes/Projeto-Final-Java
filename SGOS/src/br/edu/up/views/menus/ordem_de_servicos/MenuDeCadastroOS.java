@@ -3,12 +3,14 @@ package br.edu.up.views.menus.ordem_de_servicos;
 import br.edu.up.controllers.ControleDeAcabamento;
 import br.edu.up.controllers.ControleDeClientes;
 import br.edu.up.controllers.ControleDeEquipamento;
+import br.edu.up.controllers.ControleDeFuncionarios;
 import br.edu.up.controllers.ControleDeOrdemDeServico;
 import br.edu.up.controllers.ControleDeProduto;
 import br.edu.up.controllers.ControleProdutoDeOrdemServico;
 import br.edu.up.models.Acabamento;
 import br.edu.up.models.Cliente;
 import br.edu.up.models.Equipamento;
+import br.edu.up.models.Funcionario;
 import br.edu.up.models.OrdemDeServico;
 import br.edu.up.models.Produto;
 import br.edu.up.models.ProdutoOrdemServico;
@@ -21,6 +23,7 @@ public class MenuDeCadastroOS {
     private ControleDeAcabamento controleDeAcabamento = new ControleDeAcabamento();
     private ControleDeEquipamento controleDeEquipamento = new ControleDeEquipamento();
     private ControleDeProduto controleDeProduto = new ControleDeProduto();
+    private ControleDeFuncionarios controleDeFuncionarios = new ControleDeFuncionarios();
 
     public void mostrar(){
         Prompt.limparConsole();
@@ -29,11 +32,11 @@ public class MenuDeCadastroOS {
         Prompt.imprimir("CADASTRANDO UMA ORDEM DE SERVICO - informações iniciais");
         Prompt.separador();
 
-        String identificacao = Prompt.lerLinha("Digite o cpf/cnpj do cliente:");
-        Cliente cliente = controleDeClientes.buscar(identificacao);
-        String funcionario = Prompt.lerLinha("Digite qual funcionário está responsavel pela OS:");
+        Cliente cliente = escolherCliente();
+        Funcionario funcionario = escolherFuncionario();
         ProdutoOrdemServico produtoOrdemServico = adicionarProduto();
         String comentario = Prompt.lerLinha("Digite um comentário sobre a OS:");
+
 
         OrdemDeServico ordemDeServico = new OrdemDeServico(cliente, funcionario, comentario, produtoOrdemServico);
         controleOS.adicionar(ordemDeServico);
@@ -45,6 +48,34 @@ public class MenuDeCadastroOS {
 
         Prompt.imprimir(ordemDeServico.toString());
         Prompt.pressionarEnter();
+    }
+
+    public Cliente escolherCliente(){
+        Cliente cliente = null;
+        do {
+            String identificacao = Prompt.lerLinha("Digite o cpf ou cnpj do funcionário responsavel pela OS:");
+            cliente = controleDeClientes.buscar(identificacao);
+
+            if (cliente == null) {
+                Prompt.imprimir("identificacao inexistente ou identificacao invalido! Digite novamente!");
+            }
+        } while (cliente == null);
+       
+        return cliente;
+    }
+
+    public Funcionario escolherFuncionario(){
+        Funcionario funcionario = null;
+        do {
+            String cpf = Prompt.lerLinha("Digite o cpf do funcionário responsavel pela OS:");
+            funcionario = controleDeFuncionarios.buscar(cpf);
+
+            if (funcionario == null) {
+                Prompt.imprimir("cpf inexistente ou cpf invalido! Digite novamente!");
+            }
+        } while (funcionario == null);
+       
+        return funcionario;
     }
 
     public ProdutoOrdemServico adicionarProduto(){

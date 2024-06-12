@@ -3,6 +3,7 @@ package br.edu.up.controllers;
 import java.util.List;
 
 import br.edu.up.models.Cliente;
+import br.edu.up.models.ClienteEmpresa;
 import br.edu.up.models.ClientePessoa;
 import br.edu.up.daos.GerenciadorDeClientesDAO;
 
@@ -52,25 +53,36 @@ public class ControleDeClientes {
 
     public Cliente buscar(String identificacao){
         for (Cliente cliente : clientes) {
-            if(cliente.getCpf().toLowerCase().equals(identificacao.toLowerCase())){
+            if(cliente instanceof ClientePessoa && ((ClientePessoa)cliente).getCpf().toLowerCase().equals(identificacao.toLowerCase())){
+                return cliente;
+            }
+            else if(cliente instanceof ClienteEmpresa && ((ClienteEmpresa)cliente).getCnpj().toLowerCase().equals(identificacao.toLowerCase())){
                 return cliente;
             }
         }
         return null;
     }
 
-    public void alterarCliente(String cpf, Cliente clienteAlterado){
+    public void alterarCliente(String identificacao, Cliente clienteAlterado){
         for (Cliente cliente : clientes) {
-            if (cliente.getClienteId() == clienteId) {
+            if(cliente instanceof ClientePessoa && ((ClientePessoa)cliente).getCpf().toLowerCase().equals(identificacao.toLowerCase())){
                 cliente.setNomeCliente(clienteAlterado.getNomeCliente());
                 cliente.setCep(clienteAlterado.getCep());
                 cliente.setEndereco(clienteAlterado.getEndereco());
                 cliente.setBairro(clienteAlterado.getBairro());
                 cliente.setCidade(clienteAlterado.getCidade());
-                if (cliente instanceof ClientePessoa) {
-                    ((ClientePessoa) cliente).setRg(((ClientePessoa) clienteAlterado).getRg());
-                }
-                break;
+                ((ClientePessoa)cliente).setCpf(((ClientePessoa)clienteAlterado).getCpf());
+                ((ClientePessoa)cliente).setRg(((ClientePessoa)clienteAlterado).getRg());
+            }
+            else if(cliente instanceof ClienteEmpresa && ((ClienteEmpresa)cliente).getCnpj().toLowerCase().equals(identificacao.toLowerCase())){
+                cliente.setNomeCliente(clienteAlterado.getNomeCliente());
+                cliente.setCep(clienteAlterado.getCep());
+                cliente.setEndereco(clienteAlterado.getEndereco());
+                cliente.setBairro(clienteAlterado.getBairro());
+                cliente.setCidade(clienteAlterado.getCidade());
+                ((ClienteEmpresa)cliente).setCNPJ(((ClienteEmpresa)clienteAlterado).getCnpj());
+                ((ClienteEmpresa)cliente).setInscricaoEstadual(((ClienteEmpresa)clienteAlterado).getInscricaoEstadual());
+                ((ClienteEmpresa)cliente).setAnoFundacao(((ClienteEmpresa)clienteAlterado).getAnoFundacao());
             }
         }
         dao.gravarArquivo();

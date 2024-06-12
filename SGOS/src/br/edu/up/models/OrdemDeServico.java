@@ -6,7 +6,7 @@ public class OrdemDeServico {
     private int codigo;
     private LocalDateTime dataEHoraAbertura;
     private Cliente cliente;
-    private String funcionario;
+    private Funcionario funcionario;
     private String comentario;
     private ProdutoOrdemServico produtoOS;
     private Status status;
@@ -22,7 +22,7 @@ public class OrdemDeServico {
     public OrdemDeServico() {
     }
 
-    public OrdemDeServico(Cliente cliente, String funcionario,
+    public OrdemDeServico(Cliente cliente, Funcionario funcionario,
         String comentario, ProdutoOrdemServico produtoOS) {
         this.dataEHoraAbertura = LocalDateTime.now();
         this.cliente = cliente;
@@ -32,7 +32,7 @@ public class OrdemDeServico {
         this.status = Status.EM_PRODUCAO;
     }
 
-    public OrdemDeServico(int codigo, LocalDateTime dataEHoraAbertura, Cliente cliente, String funcionario,
+    public OrdemDeServico(int codigo, LocalDateTime dataEHoraAbertura, Cliente cliente, Funcionario funcionario,
     String comentario, ProdutoOrdemServico produtoOS) {
     this.codigo = codigo;
     this.dataEHoraAbertura = dataEHoraAbertura;
@@ -61,10 +61,10 @@ public class OrdemDeServico {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    public String getFuncionario() {
+    public Funcionario getFuncionario() {
         return funcionario;
     }
-    public void setFuncionario(String funcionario) {
+    public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
     public String getComentario() {

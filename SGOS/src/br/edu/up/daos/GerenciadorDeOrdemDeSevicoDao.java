@@ -11,8 +11,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 import br.edu.up.controllers.ControleDeClientes;
+import br.edu.up.controllers.ControleDeFuncionarios;
 import br.edu.up.controllers.ControleProdutoDeOrdemServico;
 import br.edu.up.models.Cliente;
+import br.edu.up.models.Funcionario;
 import br.edu.up.models.OrdemDeServico;
 import br.edu.up.models.ProdutoOrdemServico;
 import br.edu.up.util.EnvLoader;
@@ -42,12 +44,13 @@ public class GerenciadorDeOrdemDeSevicoDao {
                 String[] dados = linha.split(";");
                 ControleDeClientes controleDeClientes = new ControleDeClientes();
                 ControleProdutoDeOrdemServico controleProdutoDeOrdemServico = new ControleProdutoDeOrdemServico();
+                ControleDeFuncionarios controleDeFuncionarios = new ControleDeFuncionarios();
 
                 Integer codigo = Integer.parseInt(dados[0]);
                 LocalDateTime dataEHoraAbertura = LocalDateTime.parse(dados[1]);
                 Integer idCliente = Integer.parseInt(dados[2]);
                 Cliente cliente = controleDeClientes.buscar(idCliente); 
-                String funcionario = dados[3];
+                Funcionario funcionario = controleDeFuncionarios.buscar(dados[3]);
                 String comentario = dados[4];
                 Integer produtoOrdemServicoId = Integer.parseInt(dados[5]);
                 ProdutoOrdemServico produtoOrdemServico = controleProdutoDeOrdemServico.buscar(produtoOrdemServicoId);

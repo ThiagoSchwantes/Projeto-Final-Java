@@ -5,6 +5,7 @@ import br.edu.up.util.Prompt;
 import br.edu.up.views.menus.ordem_de_servicos.MenuDeCadastroOS;
 
 public class MenuOrdemDeServico {
+    
     private ControleDeOrdemDeServico controleOS = new ControleDeOrdemDeServico();
     
     MenuDeCadastroOS menuDeCadastroOS = new MenuDeCadastroOS();

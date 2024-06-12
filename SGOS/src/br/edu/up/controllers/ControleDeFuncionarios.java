@@ -44,7 +44,7 @@ public class ControleDeFuncionarios {
 
     public Funcionario buscar(String cpf){
         for (Funcionario funcionario : funcionarios) {
-            if(funcionario.getCpf().toLowerCase().equals(cpf.toLowerCase())){
+            if(funcionario.getCpf().equals(cpf)){
                 return funcionario;
             }
         }
