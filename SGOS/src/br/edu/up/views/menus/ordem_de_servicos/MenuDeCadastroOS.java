@@ -46,7 +46,8 @@ public class MenuDeCadastroOS {
         Prompt.imprimir("ORDEM DE SERVICO CADASTRADA COM SUCESSO");
         Prompt.separador();
 
-        Prompt.imprimir(ordemDeServico.toString());
+        Prompt.imprimir(ordemDeServico.toStringBasico());
+        Prompt.separador();
         Prompt.pressionarEnter();
     }
 
@@ -60,7 +61,7 @@ public class MenuDeCadastroOS {
                 Prompt.imprimir("identificacao inexistente ou identificacao invalido! Digite novamente!");
             }
         } while (cliente == null);
-       
+
         return cliente;
     }
 
@@ -95,7 +96,7 @@ public class MenuDeCadastroOS {
         produtoOrdemServico = new ProdutoOrdemServico(produto, quantidade, largura, altura, valorM2, equipamento, acabamento);
         controleProdutoDeOrdemServico.adicionar(produtoOrdemServico);
 
-        etapa("Produto adicionado:\n" + produtoOrdemServico.toString());
+        etapa("Produto da Ordem de servico adicionado:\n" + produtoOrdemServico.toStringBasico());
             
         return produtoOrdemServico;
     }
@@ -123,9 +124,9 @@ public class MenuDeCadastroOS {
 
             if(produto == null){
                 Prompt.limparConsole();
-                etapa("Etapa 1/4 - Selecione qual produto deseja adicionar na Ordem de Servico"); 
                 Prompt.separador();
                 Prompt.imprimir("digite corretamente o indice do produto!");
+                Prompt.separador();
                 Prompt.pressionarEnter();
             }
         }while(produto == null);
@@ -141,7 +142,15 @@ public class MenuDeCadastroOS {
             Prompt.separador();
     
             int opcao = Prompt.lerInteiro("Digite qual equipamento deseja adicionar:");
-            equipamento = controleDeEquipamento.buscar(opcao-1);
+            equipamento = controleDeEquipamento.buscar(opcao);
+
+            if(equipamento == null){
+                Prompt.limparConsole();
+                Prompt.separador();
+                Prompt.imprimir("digite corretamente o equipamento desejado!");
+                Prompt.separador();
+                Prompt.pressionarEnter();
+            }
         }while(equipamento == null);
         
         return equipamento;
@@ -155,7 +164,15 @@ public class MenuDeCadastroOS {
             Prompt.separador();
     
             int opcao = Prompt.lerInteiro("Digite qual equipamento deseja adicionar:");
-            acabamento = controleDeAcabamento.buscar(opcao-1);
+            acabamento = controleDeAcabamento.buscar(opcao);
+
+            if(acabamento == null){
+                Prompt.limparConsole();
+                Prompt.separador();
+                Prompt.imprimir("digite corretamente o acabamento desejado!");
+                Prompt.separador();
+                Prompt.pressionarEnter();
+            }
         }while(acabamento == null);
         
         return acabamento;

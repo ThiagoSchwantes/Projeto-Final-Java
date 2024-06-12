@@ -2,6 +2,8 @@ package br.edu.up.models;
 
 import java.time.LocalDateTime;
 
+import br.edu.up.util.Prompt;
+
 public class OrdemDeServico {
     private int codigo;
     private LocalDateTime dataEHoraAbertura;
@@ -92,8 +94,29 @@ public class OrdemDeServico {
                 + ", funcionario=" + funcionario + ", comentario=" + comentario + ", produtoOS=" + produtoOS
                 + ", status=" + status + "]";
     }
+
+    public String toStringBasico(){
+        return  "Detalhes do Produto da Os: \n" +
+                "\tProduto: " + produtoOS.getProduto().getNomeProduto() + "\n"+
+                "\tQuantidade: " + produtoOS.getQuantidade() + "\n" +
+                "\tlargura: " + produtoOS.getLargura() + "\n" +
+                "\taltura: " + produtoOS.getAltura() + "\n" +
+                "\tvalor do metro quadrado: " + produtoOS.getValorM2() + "\n" +
+                "\ttotal do metro quadrado: " + produtoOS.getTotalM2() + "\n" +
+                "\tvalor unitário: " + produtoOS.getValorUnitario() + "\n" +
+                "\tsubTotal: " + produtoOS.getSubTtotal() + "\n" + 
+                "\tequipamento: " + produtoOS.getEquipamento().getNomeEquipamento() + "\n" +
+                "\tacabamento: " + produtoOS.getAcabamento().getNomeAcabamento() + "\n" +
+                "\nDetalhes da Ordem de Serviço: \n" + 
+                "\tCliente: " + cliente.getNomeCliente() + "\n" +
+                "\tFuncionario: "+ funcionario.getNomeFuncionario() + "\n" +
+                "\tData de abertura: " + dataEHoraAbertura.toString() + "\n" + 
+                "\tStatus: " + status.toString() + "\n" +
+                "\tComentário: " + comentario; 
+    }
     
     public String toCSV(){
+        Prompt.imprimir(funcionario);
         return codigo + ";" + dataEHoraAbertura + ";" + cliente.getClienteId() + ";" + funcionario.getFuncionarioId() + ";" + comentario + ";" + produtoOS.getProdutoOrdemServicoId();
     }
 }

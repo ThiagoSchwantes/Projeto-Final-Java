@@ -38,9 +38,9 @@ public class ControleDeEquipamento {
 
         for (Equipamento equipamento : equipamentos) {
             if(equipamentos.indexOf(equipamento) == 0){
-                lista = contador + " - " + equipamento.toString();
+                lista = contador + " - " + equipamento.getNomeEquipamento();
             }else{
-                lista += "\n\n" + contador + " - " +equipamento.toString();
+                lista += "\n" + contador + " - " +equipamento.getNomeEquipamento();
             }
             
             contador++;

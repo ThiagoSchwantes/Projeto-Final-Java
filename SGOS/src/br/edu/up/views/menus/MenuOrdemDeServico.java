@@ -6,8 +6,6 @@ import br.edu.up.views.menus.ordem_de_servicos.MenuDeCadastroOS;
 
 public class MenuOrdemDeServico {
     
-    private ControleDeOrdemDeServico controleOS = new ControleDeOrdemDeServico();
-    
     MenuDeCadastroOS menuDeCadastroOS = new MenuDeCadastroOS();
 
     public void mostrar(){
@@ -33,6 +31,8 @@ public class MenuOrdemDeServico {
                 menuDeCadastroOS.mostrar();
                 break;
             case 2:
+                ControleDeOrdemDeServico controleOS = new ControleDeOrdemDeServico();
+                Prompt.imprimir(controleOS.listar());
                 break;
             case 3:
                 break;

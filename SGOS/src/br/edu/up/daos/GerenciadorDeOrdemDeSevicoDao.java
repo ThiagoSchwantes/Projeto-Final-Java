@@ -20,7 +20,7 @@ import br.edu.up.models.ProdutoOrdemServico;
 import br.edu.up.util.EnvLoader;
 
 public class GerenciadorDeOrdemDeSevicoDao {
-    private String header = "codigo;dataEHoraAbertura;clienteId;funcionario;comentario;produtoOrdemServicoId";
+    private String header = "codigo;dataEHoraAbertura;clienteId;funcionarioId;comentario;produtoOrdemServicoId";
     private String nomeDoArquivo;
     List<OrdemDeServico> listaDeOrdemDeServicos = new ArrayList<>();
 
@@ -48,12 +48,10 @@ public class GerenciadorDeOrdemDeSevicoDao {
 
                 Integer codigo = Integer.parseInt(dados[0]);
                 LocalDateTime dataEHoraAbertura = LocalDateTime.parse(dados[1]);
-                Integer idCliente = Integer.parseInt(dados[2]);
-                Cliente cliente = controleDeClientes.buscar(idCliente); 
+                Cliente cliente = controleDeClientes.buscar(dados[2]); 
                 Funcionario funcionario = controleDeFuncionarios.buscar(dados[3]);
                 String comentario = dados[4];
-                Integer produtoOrdemServicoId = Integer.parseInt(dados[5]);
-                ProdutoOrdemServico produtoOrdemServico = controleProdutoDeOrdemServico.buscar(produtoOrdemServicoId);
+                ProdutoOrdemServico produtoOrdemServico = controleProdutoDeOrdemServico.buscar(Integer.parseInt(dados[5]));
 
                 OrdemDeServico ordemDeServico = new OrdemDeServico(codigo, dataEHoraAbertura, cliente, funcionario, comentario, produtoOrdemServico);
 
