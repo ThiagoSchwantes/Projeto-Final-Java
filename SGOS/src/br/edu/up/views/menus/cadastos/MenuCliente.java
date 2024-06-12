@@ -199,25 +199,29 @@ public class MenuCliente {
             }
         }
     }
-
     private String lerRg() {
         while (true) {
             String rg = Prompt.lerLinha("Informe o RG do cliente: ");
-            if (rg == null || rg.trim().isEmpty()) {
-                Prompt.imprimir("RG não pode ser nulo ou vazio.");
-            } else {
+            try {
+                ClientePessoa cliente = new ClientePessoa();
+                cliente.setRg(rg);
                 return rg;
+            } catch (IllegalArgumentException g) {
+                Prompt.imprimir(g.getMessage());
             }
         }
     }
 
+
     private String lerCpf() {
         while (true) {
             String cpf = Prompt.lerLinha("Informe o CPF do cliente (formato: 123.456.789-00): ");
-            if (cpf == null || cpf.trim().isEmpty()) {
-                Prompt.imprimir("CPF não pode ser nulo ou vazio.");
-            } else {
+            try {
+                ClientePessoa cliente = new ClientePessoa();
+                cliente.setCpf(cpf);
                 return cpf;
+            } catch (IllegalArgumentException e) {
+                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -225,10 +229,12 @@ public class MenuCliente {
     private String lerCnpj() {
         while (true) {
             String cnpj = Prompt.lerLinha("Informe o CNPJ do cliente (formato: 00.000.000/0000-00): ");
-            if (cnpj == null || cnpj.trim().isEmpty()) {
-                Prompt.imprimir("CNPJ não pode ser nulo ou vazio.");
-            } else {
+            try {
+                ClienteEmpresa cliente = new ClienteEmpresa();
+                cliente.setCNPJ(cnpj);
                 return cnpj;
+            } catch (IllegalArgumentException e) {
+                Prompt.imprimir(e.getMessage());
             }
         }
     }
@@ -244,10 +250,12 @@ public class MenuCliente {
     private String lerCep() {
         while (true) {
             String cep = Prompt.lerLinha("Informe o CEP do cliente: ");
-            if (cep == null || cep.trim().isEmpty()) {
-                Prompt.imprimir("CEP não pode ser nulo ou vazio.");
-            } else {
+            try {
+                Cliente cliente = new ClientePessoa();
+                cliente.setCep(cep);
                 return cep;
+            } catch (IllegalArgumentException e) {
+                Prompt.imprimir(e.getMessage());
             }
         }
     }

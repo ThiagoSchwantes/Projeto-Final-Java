@@ -4,6 +4,9 @@ public class ClientePessoa extends Cliente {
     private String rg;
     private String cpf;
 
+    public ClientePessoa(){
+
+    }
     public ClientePessoa(Integer clienteId, String nomeCliente, String cep, String endereco, String bairro,
             String cidade) {
         super(clienteId, nomeCliente, cep, endereco, bairro, cidade);
@@ -21,7 +24,7 @@ public class ClientePessoa extends Cliente {
     }
 
     public void setRg(String rg) {
-        if (rg == null || rg.trim().isEmpty()) {
+        if (rg == null || rg.trim().isEmpty() || !isValidRG(rg)) {
             throw new IllegalArgumentException("RG não pode ser nulo ou vazio");
         }
         this.rg = rg;
@@ -71,6 +74,29 @@ public class ClientePessoa extends Cliente {
         }
     
         return checkDigit1 == (cpf.charAt(9) - '0') && checkDigit2 == (cpf.charAt(10) - '0');
+    }
+
+    private boolean isValidRG(String rg) {
+        if (rg == null || !rg.matches("\\d{2}\\.\\d{3}\\.\\d{3}-\\d{1}")) {
+            return false;
+        }
+    
+        // Remove os pontos e o hífen
+        rg = rg.replace(".", "").replace("-", "");
+    
+        int sum = 0;
+        for (int i = 0; i < rg.length() - 1; i++) {
+            sum += (rg.charAt(i) - '0') * (rg.length() - i);
+        }
+    
+        int checkDigit = sum % 11;
+        if (checkDigit == 10) {
+            checkDigit = 'X';
+        } else {
+            checkDigit += '0'; // Converte para o código ASCII correspondente
+        }
+    
+        return checkDigit == rg.charAt(rg.length() - 1);
     }
 
     @Override

@@ -53,7 +53,7 @@ public class MenuDeCadastroOS {
     public Cliente escolherCliente(){
         Cliente cliente = null;
         do {
-            String identificacao = Prompt.lerLinha("Digite o cpf ou cnpj do funcionário responsavel pela OS:");
+            String identificacao = Prompt.lerLinha("Digite o cpf ou cnpj do cliente:");
             cliente = controleDeClientes.buscar(identificacao);
 
             if (cliente == null) {
@@ -66,6 +66,7 @@ public class MenuDeCadastroOS {
 
     public Funcionario escolherFuncionario(){
         Funcionario funcionario = null;
+        
         do {
             String cpf = Prompt.lerLinha("Digite o cpf do funcionário responsavel pela OS:");
             funcionario = controleDeFuncionarios.buscar(cpf);
@@ -118,7 +119,15 @@ public class MenuDeCadastroOS {
             Prompt.separador();
     
             int opcao = Prompt.lerInteiro("Digite qual produto deseja adicionar?");
-            produto = controleDeProduto.buscar(opcao-1);
+            produto = controleDeProduto.buscar(opcao);
+
+            if(produto == null){
+                Prompt.limparConsole();
+                etapa("Etapa 1/4 - Selecione qual produto deseja adicionar na Ordem de Servico"); 
+                Prompt.separador();
+                Prompt.imprimir("digite corretamente o indice do produto!");
+                Prompt.pressionarEnter();
+            }
         }while(produto == null);
         
         return produto;

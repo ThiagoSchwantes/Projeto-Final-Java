@@ -94,6 +94,6 @@ public class OrdemDeServico {
     }
     
     public String toCSV(){
-        return codigo + ";" + dataEHoraAbertura + ";" + cliente.getClienteId() + ";" + funcionario + ";" + comentario + ";" + produtoOS.getProdutoOrdemServicoId();
+        return codigo + ";" + dataEHoraAbertura + ";" + cliente.getClienteId() + ";" + funcionario.getFuncionarioId() + ";" + comentario + ";" + produtoOS.getProdutoOrdemServicoId();
     }
 }
