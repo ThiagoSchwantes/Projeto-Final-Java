@@ -31,8 +31,7 @@ public class MenuOrdemDeServico {
                 menuDeCadastroOS.mostrar();
                 break;
             case 2:
-                ControleDeOrdemDeServico controleOS = new ControleDeOrdemDeServico();
-                Prompt.imprimir(controleOS.listar());
+                listar();
                 break;
             case 3:
                 break;
@@ -53,5 +52,17 @@ public class MenuOrdemDeServico {
         if(!sair){
             mostrar();
         }
+    }
+
+    public void listar(){
+        Prompt.limparConsole();
+
+        Prompt.separador();
+        Prompt.imprimir("LISTAGEM DE ORDENS DE SERVIÇOS");
+        Prompt.separador();
+
+        ControleDeOrdemDeServico controleOS = new ControleDeOrdemDeServico();
+        Prompt.imprimir(controleOS.listar());
+        Prompt.pressionarEnter();
     }
 }
