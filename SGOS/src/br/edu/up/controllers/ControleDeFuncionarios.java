@@ -51,6 +51,15 @@ public class ControleDeFuncionarios {
         return null;
     }
 
+    public Funcionario buscar(Integer index){
+        for (Funcionario funcionario : funcionarios) {
+            if(funcionario.getFuncionarioId() == index){
+                return funcionario;
+            }
+        }
+        return null;
+    }
+
     public void deletarFuncionario(String cpf) {
         Iterator<Funcionario> iterator = funcionarios.iterator();
 

@@ -17,9 +17,7 @@ public class MenuPrincipal {
         Prompt.imprimir("Digite uma das opções:");
         Prompt.imprimir("\t1 - Cadastros");
         Prompt.imprimir("\t2 - Movimentação de Ordem de Serviço");
-        Prompt.imprimir("\t3 - Relatórios");
-        Prompt.imprimir("\t4 - Configuração");
-        Prompt.imprimir("\t5 - Sair");
+        Prompt.imprimir("\t3 - Sair");
 
         int opcao1 = Prompt.lerInteiro("Digite aqui: ");
 
@@ -31,12 +29,6 @@ public class MenuPrincipal {
                 menuOrdemDeServico.mostrar();
                 break;
             case 3:
-                //menuRelatorio();
-                break;
-            case 4:
-                //menuConfiguração();
-                break;
-            case 5:
                 encerrarPrograma();
                 break;
             default:

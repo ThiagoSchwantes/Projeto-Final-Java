@@ -39,8 +39,9 @@ public class ControleDeOrdemDeServico {
             if(ordemDeServicos.indexOf(ordemDeServico) == 0){
                 lista = ordemDeServico.toStringBasico();
             }else{
-                lista += "\n\n"+ordemDeServico.toStringBasico();
+                lista += ordemDeServico.toStringBasico();
             }
+            lista += "\n-------------------------------------------------------------------------\n";
         }
         return lista;
     }
