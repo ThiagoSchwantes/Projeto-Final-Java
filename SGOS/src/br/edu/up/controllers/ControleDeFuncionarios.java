@@ -67,6 +67,7 @@ public class ControleDeFuncionarios {
             Funcionario funcionario = iterator.next();
             if(funcionario instanceof Funcionario){
                 Funcionario funcionarioG = (Funcionario) funcionario;
+
                 if(funcionarioG.getCpf().equals(cpf)){
                     iterator.remove();
                     break;
@@ -74,10 +75,7 @@ public class ControleDeFuncionarios {
             }
         }
         daoFuncionario.gravarArquivo();
-
-
     }
-
 
     public void alterarFuncionario(String cpf, Funcionario funcionarioAlterado) {
         for (Funcionario funcionario : funcionarios) {
@@ -93,8 +91,4 @@ public class ControleDeFuncionarios {
         }
         daoFuncionario.gravarArquivo();
     }
-
-
-    
 }
-

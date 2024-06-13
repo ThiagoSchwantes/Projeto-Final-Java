@@ -1,6 +1,7 @@
 package br.edu.up.models;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import br.edu.up.util.Prompt;
 
@@ -95,8 +96,34 @@ public class OrdemDeServico {
                 + ", status=" + status + "]";
     }
 
+    public String getDataEHoraAberturaToString(){
+        LocalDateTime dataEHoraAbertura = LocalDateTime.parse("2024-06-12T19:00:29.713865400");
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String dataFormatada = dataEHoraAbertura.format(formatador);
+
+        return dataFormatada;
+    }
+
+    public String toStringInfoOs(){
+        return  
+            "Ordem de Serviço: \n" + 
+                "\tCliente: " + cliente.getNomeCliente() + "\n" +
+                "\tFuncionario: "+ funcionario.getNomeFuncionario() + "\n" +
+                "\tData de abertura: " + getDataEHoraAberturaToString() + "\n" + 
+                "\tStatus: " + status.toString() + "\n" +
+                "\tComentário: " + comentario;
+    }
+
     public String toStringBasico(){
-        return  "Detalhes do Produto da Os: \n" +
+        return  
+            "Ordem de Serviço: \n" + 
+                "\tCliente: " + cliente.getNomeCliente() + "\n" +
+                "\tFuncionario: "+ funcionario.getNomeFuncionario() + "\n" +
+                "\tData de abertura: " + getDataEHoraAberturaToString() + "\n" + 
+                "\tStatus: " + status.toString() + "\n" +
+                "\tComentário: " + comentario + "\n\n" +  
+        
+            "Detalhes do Produto da Os: \n" +
                 "\tProduto: " + produtoOS.getProduto().getNomeProduto() + "\n"+
                 "\tQuantidade: " + produtoOS.getQuantidade() + "\n" +
                 "\tlargura: " + produtoOS.getLargura() + "\n" +
@@ -106,13 +133,7 @@ public class OrdemDeServico {
                 "\tvalor unitário: " + produtoOS.getValorUnitario() + "\n" +
                 "\tsubTotal: " + produtoOS.getSubTtotal() + "\n" + 
                 "\tequipamento: " + produtoOS.getEquipamento().getNomeEquipamento() + "\n" +
-                "\tacabamento: " + produtoOS.getAcabamento().getNomeAcabamento() + "\n" +
-                "\nDetalhes da Ordem de Serviço: \n" + 
-                "\tCliente: " + cliente.getNomeCliente() + "\n" +
-                "\tFuncionario: "+ funcionario.getNomeFuncionario() + "\n" +
-                "\tData de abertura: " + dataEHoraAbertura.toString() + "\n" + 
-                "\tStatus: " + status.toString() + "\n" +
-                "\tComentário: " + comentario; 
+                "\tacabamento: " + produtoOS.getAcabamento().getNomeAcabamento() + "\n"; 
     }
     
     public String toCSV(){

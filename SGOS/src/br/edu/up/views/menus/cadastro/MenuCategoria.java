@@ -1,4 +1,4 @@
-package br.edu.up.views.menus.cadastos;
+package br.edu.up.views.menus.cadastro;
 
 import java.util.List;
 

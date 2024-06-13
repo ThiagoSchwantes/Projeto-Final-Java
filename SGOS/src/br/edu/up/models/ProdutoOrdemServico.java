@@ -3,13 +3,13 @@ package br.edu.up.models;
 public class ProdutoOrdemServico {
     private Integer produtoOrdemServicoId;
     private Produto produto;
-    private Integer quantidade;
-    private Double largura;
-    private Double altura;
-    private Double totalM2;
-    private Double valorM2;
-    private Double valorUnitario;
-    private Double subTotal;
+    private Integer quantidade = 0;
+    private Double largura = 0.0;
+    private Double altura = 0.0;
+    private Double totalM2 = 0.0;
+    private Double valorM2 = 0.0;
+    private Double valorUnitario = 0.0;
+    private Double subTotal = 0.0;
     private Equipamento equipamento;
     private Acabamento acabamento;
 
@@ -42,18 +42,24 @@ public class ProdutoOrdemServico {
     }
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+        setTotalM2((largura * altura)*quantidade);
+        setSubTtotal(valorUnitario * quantidade);
     }
     public Double getLargura() {
         return largura;
     }
     public void setLargura(Double largura) {
         this.largura = largura;
+        setTotalM2((largura * altura)*quantidade);
+        setValorUnitario((largura * altura) * valorM2);
     }
     public Double getAltura() {
         return altura;
     }
     public void setAltura(Double altura) {
         this.altura = altura;
+        setTotalM2((largura * altura)*quantidade);
+        setValorUnitario((largura * altura) * valorM2);
     }
     public Double getTotalM2() {
         return totalM2;
@@ -66,12 +72,14 @@ public class ProdutoOrdemServico {
     }
     public void setValorM2(Double valorM2) {
         this.valorM2 = valorM2;
+        setValorUnitario((largura * altura) * valorM2);
     }
     public Double getValorUnitario() {
         return valorUnitario;
     }
     public void setValorUnitario(Double valorUnitario) {
         this.valorUnitario = valorUnitario;
+        setSubTtotal(valorUnitario * quantidade);
     }
     public Double getSubTtotal() {
         return subTotal;

@@ -74,7 +74,7 @@ public class ControleProdutoDeOrdemServico {
     }
 
     public void deletar(ProdutoOrdemServico produtoOs){
-        produtosOrdemServicos.remove(produtoOs);
+        produtosOrdemServicos.remove(produtosOrdemServicos.indexOf(produtoOs));
         daoProdutoOrdemServico.gravarArquivo();
     }
 

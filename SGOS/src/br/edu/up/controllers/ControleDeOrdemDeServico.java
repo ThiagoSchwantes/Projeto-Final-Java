@@ -23,6 +23,16 @@ public class ControleDeOrdemDeServico {
             }
         }
     }
+    
+
+    public List<OrdemDeServico> getOrdemDeServicos() {
+        return ordemDeServicos;
+    }
+
+    public void setOrdemDeServicos(List<OrdemDeServico> ordemDeServicos) {
+        this.ordemDeServicos = ordemDeServicos;
+    }
+
 
     public void adicionar(OrdemDeServico os){
         os.setCodigo(codigoOS);
@@ -34,13 +44,15 @@ public class ControleDeOrdemDeServico {
 
     public String listar(){
         String lista = "";
+        Integer contador = 1;
 
         for (OrdemDeServico ordemDeServico : ordemDeServicos) {
             if(ordemDeServicos.indexOf(ordemDeServico) == 0){
-                lista = ordemDeServico.toStringBasico();
+                lista = contador + " - " + ordemDeServico.toStringBasico();
             }else{
-                lista += ordemDeServico.toStringBasico();
+                lista += contador + " - " + ordemDeServico.toStringBasico();
             }
+            contador ++;
             lista += "\n-------------------------------------------------------------------------\n";
         }
         return lista;
@@ -53,6 +65,15 @@ public class ControleDeOrdemDeServico {
             }
         }
         return null;
+    }
+    public OrdemDeServico buscarIndex(Integer index){
+        OrdemDeServico ordemDeServico = null;
+        
+        if(ordemDeServicos.size() >= index){
+            ordemDeServico = ordemDeServicos.get(index - 1);
+        }
+        
+        return ordemDeServico;
     }
 
     public void alterar(OrdemDeServico os){
@@ -76,7 +97,10 @@ public class ControleDeOrdemDeServico {
     }
 
     public void deletar(OrdemDeServico os){
-        ordemDeServicos.remove(os);
+        ControleProdutoDeOrdemServico controleProdutoDeOrdemServico = new ControleProdutoDeOrdemServico();
+        controleProdutoDeOrdemServico.deletar(os.getProdutoOS());
+        
+        ordemDeServicos.remove(ordemDeServicos.indexOf(os));
         daoOS.gravarArquivo();
     }
 

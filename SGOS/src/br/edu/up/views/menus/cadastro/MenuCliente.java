@@ -1,4 +1,4 @@
-package br.edu.up.views.menus.cadastos;
+package br.edu.up.views.menus.cadastro;
 
 import java.util.List;
 
@@ -164,26 +164,42 @@ public class MenuCliente {
 
         if(identificacao.length() == 14){
             ClientePessoa clienteExistente = null;
+            boolean achou = false;
 
             for (Cliente cliente : controleDeClientes.getClientes()) {
                 if(cliente instanceof ClientePessoa){
                     if (((ClientePessoa)cliente).getCpf().equals(identificacao)) {
                         clienteExistente = (ClientePessoa) cliente;
+                        controleDeClientes.deletarCliente(clienteExistente.getClienteId());
+                        achou = true;
+                        break;
                     }
                 }
             }
 
-            controleDeClientes.deletarCliente(clienteExistente.getClienteId());
+            if(!achou){
+                Prompt.imprimir("CPF digitado invalido!");
+            }
+
         }else if(identificacao.length() == 18){
             ClienteEmpresa clienteExistente = null;
+            boolean achou = false;
 
             for (Cliente cliente : controleDeClientes.getClientes()) {
-                if(cliente instanceof ClienteEmpresa && ((ClienteEmpresa)cliente).getCnpj().equals(identificacao)){
-                    clienteExistente = (ClienteEmpresa) cliente;
+                if(cliente instanceof ClienteEmpresa){
+                    if(((ClienteEmpresa)cliente).getCnpj().equals(identificacao)){
+                        clienteExistente = (ClienteEmpresa) cliente;
+                        controleDeClientes.deletarCliente(clienteExistente.getClienteId());
+                        achou = true;
+                        break;
+                    }
                 }
             }
 
-            controleDeClientes.deletarCliente(clienteExistente.getClienteId());
+            if(!achou){
+                Prompt.imprimir("CNPJ digitado invalido!");
+            }
+
         }else{
             Prompt.imprimir("Cnpj ou cpf digitado inexistente!");
         }            
